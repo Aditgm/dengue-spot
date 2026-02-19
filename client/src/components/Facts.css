@@ -1,0 +1,306 @@
+/* ===== Facts Page — Dark Glass Theme ===== */
+
+.facts-container {
+  padding: 30px 20px;
+  min-height: 80vh;
+  position: relative;
+  z-index: 1;
+}
+
+.facts-card {
+  background: linear-gradient(145deg, #0d1c32 0%, #0b2342 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 180, 216, 0.25);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Header ---- */
+.facts-header {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.facts-header h2 {
+  background: linear-gradient(135deg, #48cae4 0%, #90e0ef 50%, #00b4d8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  filter: drop-shadow(0 2px 8px rgba(0, 180, 216, 0.35));
+}
+
+.facts-subtitle {
+  color: #cdefff;
+  font-size: 16px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* ---- Language Toggle ---- */
+.language-toggle {
+  display: inline-flex;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.language-toggle button {
+  padding: 10px 28px;
+  border: none;
+  background: transparent;
+  color: rgba(144, 224, 239, 0.7);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.language-toggle button:hover {
+  color: #90e0ef;
+  background: rgba(0, 180, 216, 0.08);
+}
+
+.language-toggle button.active {
+  background: linear-gradient(135deg, #00b4d8 0%, #0096c7 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 180, 216, 0.4);
+}
+
+/* ---- Facts Grid ---- */
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+  margin-bottom: 36px;
+}
+
+.fact-box {
+  background: linear-gradient(160deg, #112640 0%, #0d1d34 100%);
+  border: 1px solid rgba(0, 180, 216, 0.25);
+  border-left: 4px solid #00b4d8;
+  border-radius: 14px;
+  padding: 26px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  animation: factSlideIn 0.5s ease-out forwards;
+  z-index: 1;
+}
+
+.fact-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top left, rgba(0, 180, 216, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.fact-box:hover {
+  transform: translateY(-4px);
+  border-left-color: #48cae4;
+  border-color: rgba(0, 180, 216, 0.25);
+  background: linear-gradient(160deg, #1a365f 0%, #132a4a 100%);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(0, 180, 216, 0.1);
+}
+
+.fact-box:hover::before {
+  opacity: 1;
+}
+
+/* Number badge */
+.fact-box::after {
+  content: attr(data-num);
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 42px;
+  font-weight: 900;
+  color: rgba(0, 180, 216, 0.12);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.fact-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 2; /* lift content above decorative overlays */
+}
+
+.facts-container .fact-title {
+  color: #ffffff !important;
+  font-size: 17px;
+  margin-bottom: 4px;
+  font-weight: 900;
+  line-height: 1.4;
+  min-height: auto;
+  text-shadow: 
+    0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.facts-container .fact-text {
+  color: #90e0ef !important;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.7;
+  margin-bottom: 0;
+  text-shadow: 
+    0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* ---- Footer ---- */
+.facts-footer {
+  text-align: center;
+  padding: 20px 25px;
+  background: rgba(0, 180, 216, 0.06);
+  border: 1px solid rgba(0, 180, 216, 0.1);
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.source-note {
+  color: rgb(144, 225, 239);
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ---- Scroll Animation ---- */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Staggered Card Entrance ---- */
+@keyframes factSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fact-box:nth-child(1)  { animation-delay: 0.04s; }
+.fact-box:nth-child(2)  { animation-delay: 0.08s; }
+.fact-box:nth-child(3)  { animation-delay: 0.12s; }
+.fact-box:nth-child(4)  { animation-delay: 0.16s; }
+.fact-box:nth-child(5)  { animation-delay: 0.20s; }
+.fact-box:nth-child(6)  { animation-delay: 0.24s; }
+.fact-box:nth-child(7)  { animation-delay: 0.28s; }
+.fact-box:nth-child(8)  { animation-delay: 0.32s; }
+.fact-box:nth-child(9)  { animation-delay: 0.36s; }
+.fact-box:nth-child(10) { animation-delay: 0.40s; }
+.fact-box:nth-child(11) { animation-delay: 0.44s; }
+.fact-box:nth-child(12) { animation-delay: 0.48s; }
+.fact-box:nth-child(13) { animation-delay: 0.52s; }
+.fact-box:nth-child(14) { animation-delay: 0.56s; }
+.fact-box:nth-child(15) { animation-delay: 0.60s; }
+.fact-box:nth-child(16) { animation-delay: 0.64s; }
+.fact-box:nth-child(17) { animation-delay: 0.68s; }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .facts-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+
+  .facts-header h2 {
+    font-size: 24px;
+  }
+
+  .facts-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .facts-container .fact-title {
+    font-size: 16px;
+  }
+
+  .facts-container .fact-text {
+    font-size: 13.5px;
+  }
+
+  .language-toggle button {
+    padding: 8px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .facts-container {
+    padding: 16px 10px;
+  }
+
+  .facts-card {
+    padding: 18px 14px;
+  }
+
+  .facts-header h2 {
+    font-size: 20px;
+  }
+
+  .facts-subtitle {
+    font-size: 14px;
+  }
+
+  .fact-box {
+    border-radius: 10px;
+    padding: 18px 16px;
+  }
+
+  .facts-container .fact-title {
+    font-size: 15px;
+  }
+
+  .facts-container .fact-text {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .language-toggle {
+    flex-wrap: wrap;
+  }
+
+  .language-toggle button {
+    flex: 1;
+    min-width: 100px;
+  }
+}
