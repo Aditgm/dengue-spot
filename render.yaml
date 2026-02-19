@@ -8,15 +8,15 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        fromSecret: PORT
+        value: "5000"
       - key: MONGODB_URI
         fromSecret: MONGODB_URI
       - key: JWT_SECRET
         fromSecret: JWT_SECRET
       - key: JWT_EXPIRES_IN
-        fromSecret: JWT_EXPIRES_IN
+        value: "24h"
       - key: REFRESH_TOKEN_EXPIRES_IN
-        fromSecret: REFRESH_TOKEN_EXPIRES_IN
+        value: "7d"
       - key: SESSION_SECRET
         fromSecret: SESSION_SECRET
       - key: REDIS_URL
@@ -30,7 +30,7 @@ services:
       - key: PINECONE_API_KEY
         fromSecret: PINECONE_API_KEY
       - key: PINECONE_INDEX_NAME
-        fromSecret: PINECONE_INDEX_NAME
+        value: "denguespot-kb"
       - key: GOOGLE_CLIENT_ID
         fromSecret: GOOGLE_CLIENT_ID
       - key: GOOGLE_CLIENT_SECRET
@@ -44,18 +44,18 @@ services:
       - key: EMAIL_PASS
         fromSecret: EMAIL_PASS
       - key: EMAIL_SERVICE
-        fromSecret: EMAIL_SERVICE
+        value: "gmail"
       - key: ROBOFLOW_API_KEY
         fromSecret: ROBOFLOW_API_KEY
       - key: ROBOFLOW_WORKSPACE
         fromSecret: ROBOFLOW_WORKSPACE
       - key: ROBOFLOW_MODEL_ID
-        fromSecret: ROBOFLOW_MODEL_ID
+        value: "mosquito-breeding-grounds"
       - key: ROBOFLOW_VERSION
-        fromSecret: ROBOFLOW_VERSION
+        value: "1"
       - key: REACT_APP_NEWS_API_KEY
         fromSecret: REACT_APP_NEWS_API_KEY
       - key: GROQ_API_KEY
         fromSecret: GROQ_API_KEY
       - key: GROQ_MODEL
-        fromSecret: GROQ_MODEL
+        value: "llama-3.3-70b-versatile"
