@@ -1,0 +1,61 @@
+services:
+  - type: web
+    name: denguespot
+    runtime: node
+    buildCommand: npm run install-all && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromSecret: PORT
+      - key: MONGODB_URI
+        fromSecret: MONGODB_URI
+      - key: JWT_SECRET
+        fromSecret: JWT_SECRET
+      - key: JWT_EXPIRES_IN
+        fromSecret: JWT_EXPIRES_IN
+      - key: REFRESH_TOKEN_EXPIRES_IN
+        fromSecret: REFRESH_TOKEN_EXPIRES_IN
+      - key: SESSION_SECRET
+        fromSecret: SESSION_SECRET
+      - key: REDIS_URL
+        fromSecret: REDIS_URL
+      - key: CLOUDINARY_CLOUD_NAME
+        fromSecret: CLOUDINARY_CLOUD_NAME
+      - key: CLOUDINARY_API_KEY
+        fromSecret: CLOUDINARY_API_KEY
+      - key: CLOUDINARY_API_SECRET
+        fromSecret: CLOUDINARY_API_SECRET
+      - key: PINECONE_API_KEY
+        fromSecret: PINECONE_API_KEY
+      - key: PINECONE_INDEX_NAME
+        fromSecret: PINECONE_INDEX_NAME
+      - key: GOOGLE_CLIENT_ID
+        fromSecret: GOOGLE_CLIENT_ID
+      - key: GOOGLE_CLIENT_SECRET
+        fromSecret: GOOGLE_CLIENT_SECRET
+      - key: GOOGLE_CALLBACK_URL
+        fromSecret: GOOGLE_CALLBACK_URL
+      - key: FRONTEND_URL
+        fromSecret: FRONTEND_URL
+      - key: EMAIL_USER
+        fromSecret: EMAIL_USER
+      - key: EMAIL_PASS
+        fromSecret: EMAIL_PASS
+      - key: EMAIL_SERVICE
+        fromSecret: EMAIL_SERVICE
+      - key: ROBOFLOW_API_KEY
+        fromSecret: ROBOFLOW_API_KEY
+      - key: ROBOFLOW_WORKSPACE
+        fromSecret: ROBOFLOW_WORKSPACE
+      - key: ROBOFLOW_MODEL_ID
+        fromSecret: ROBOFLOW_MODEL_ID
+      - key: ROBOFLOW_VERSION
+        fromSecret: ROBOFLOW_VERSION
+      - key: REACT_APP_NEWS_API_KEY
+        fromSecret: REACT_APP_NEWS_API_KEY
+      - key: GROQ_API_KEY
+        fromSecret: GROQ_API_KEY
+      - key: GROQ_MODEL
+        fromSecret: GROQ_MODEL
