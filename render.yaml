@@ -9,53 +9,53 @@ services:
         value: production
       - key: PORT
         value: "5000"
-      - key: MONGODB_URI
-        fromSecret: MONGODB_URI
-      - key: JWT_SECRET
-        fromSecret: JWT_SECRET
       - key: JWT_EXPIRES_IN
         value: "24h"
       - key: REFRESH_TOKEN_EXPIRES_IN
         value: "7d"
-      - key: SESSION_SECRET
-        fromSecret: SESSION_SECRET
-      - key: REDIS_URL
-        fromSecret: REDIS_URL
-      - key: CLOUDINARY_CLOUD_NAME
-        fromSecret: CLOUDINARY_CLOUD_NAME
-      - key: CLOUDINARY_API_KEY
-        fromSecret: CLOUDINARY_API_KEY
-      - key: CLOUDINARY_API_SECRET
-        fromSecret: CLOUDINARY_API_SECRET
-      - key: PINECONE_API_KEY
-        fromSecret: PINECONE_API_KEY
-      - key: PINECONE_INDEX_NAME
-        value: "denguespot-kb"
-      - key: GOOGLE_CLIENT_ID
-        fromSecret: GOOGLE_CLIENT_ID
-      - key: GOOGLE_CLIENT_SECRET
-        fromSecret: GOOGLE_CLIENT_SECRET
-      - key: GOOGLE_CALLBACK_URL
-        fromSecret: GOOGLE_CALLBACK_URL
-      - key: FRONTEND_URL
-        fromSecret: FRONTEND_URL
-      - key: EMAIL_USER
-        fromSecret: EMAIL_USER
-      - key: EMAIL_PASS
-        fromSecret: EMAIL_PASS
       - key: EMAIL_SERVICE
         value: "gmail"
-      - key: ROBOFLOW_API_KEY
-        fromSecret: ROBOFLOW_API_KEY
-      - key: ROBOFLOW_WORKSPACE
-        fromSecret: ROBOFLOW_WORKSPACE
+      - key: PINECONE_INDEX_NAME
+        value: "denguespot-kb"
       - key: ROBOFLOW_MODEL_ID
         value: "mosquito-breeding-grounds"
       - key: ROBOFLOW_VERSION
         value: "1"
-      - key: REACT_APP_NEWS_API_KEY
-        fromSecret: REACT_APP_NEWS_API_KEY
-      - key: GROQ_API_KEY
-        fromSecret: GROQ_API_KEY
       - key: GROQ_MODEL
         value: "llama-3.3-70b-versatile"
+      - key: MONGODB_URI
+        value: ""
+      - key: JWT_SECRET
+        value: ""
+      - key: SESSION_SECRET
+        value: ""
+      - key: REDIS_URL
+        value: ""
+      - key: CLOUDINARY_CLOUD_NAME
+        value: ""
+      - key: CLOUDINARY_API_KEY
+        value: ""
+      - key: CLOUDINARY_API_SECRET
+        value: ""
+      - key: PINECONE_API_KEY
+        value: ""
+      - key: GOOGLE_CLIENT_ID
+        value: ""
+      - key: GOOGLE_CLIENT_SECRET
+        value: ""
+      - key: GOOGLE_CALLBACK_URL
+        value: ""
+      - key: FRONTEND_URL
+        value: ""
+      - key: EMAIL_USER
+        value: ""
+      - key: EMAIL_PASS
+        value: ""
+      - key: ROBOFLOW_API_KEY
+        value: ""
+      - key: ROBOFLOW_WORKSPACE
+        value: ""
+      - key: REACT_APP_NEWS_API_KEY
+        value: ""
+      - key: GROQ_API_KEY
+        value: ""
