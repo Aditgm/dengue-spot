@@ -125,12 +125,14 @@
             }, 3000);
         }
 
+        // Handle form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
+            // Basic validation
             if (!email || !password) {
                 showToast('Please fill in all fields', 'error');
                 return;
@@ -139,7 +141,9 @@
             if (email.includes('@') && password.length >= 6) {
                 showToast('Login successful! Redirecting...', 'success');
                 
+                // Simulate redirect after 1.5 seconds
                 setTimeout(() => {
+                    // Replace with your actual app URL
                     window.location.href = '/';
                 }, 1500);
             } else if (!email.includes('@') && email.length >= 3 && password.length >= 6) {
@@ -153,6 +157,7 @@
             }
         });
 
+        // Prevent form submission for demo social buttons
         document.querySelectorAll('.social-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -160,6 +165,7 @@
             });
         });
 
+        // Demo forgot password
         document.querySelector('.forgot-password').addEventListener('click', function(e) {
             e.preventDefault();
             showToast('Password reset link sent to your email', 'info');

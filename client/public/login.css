@@ -410,6 +410,7 @@ body {
     text-decoration: underline;
 }
 
+/* Toast Notifications */
 .toast {
     position: fixed;
     bottom: 30px;
@@ -447,6 +448,8 @@ body {
     background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
 }
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .login-box {
         padding: 40px 25px;
@@ -464,7 +467,7 @@ body {
 
     .form-group input {
         padding: 11px 12px 11px 40px;
-        font-size: 16px;
+        font-size: 16px; /* Prevents zoom on iOS */
     }
 
     .login-btn {

@@ -1,0 +1,101 @@
+.scan-hero-3d {
+  position: relative;
+  min-height: 580px;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  background: radial-gradient(circle at 30% 20%, rgba(26, 188, 156, 0.12), transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(231, 76, 60, 0.1), transparent 50%),
+    linear-gradient(135deg, rgba(13, 43, 62, 0.97) 0%, rgba(10, 22, 40, 0.98) 70%);
+  border: 1px solid rgba(26, 188, 156, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 60px rgba(26, 188, 156, 0.08),
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.scan-hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scan-hero-text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scan-3d-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.scan-3d-title-top {
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #ff4444;
+  text-shadow: 0 0 20px rgba(255, 68, 68, 0.6),
+    0 0 40px rgba(255, 68, 68, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+.scan-3d-title-bottom {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: #00ffdd;
+  text-shadow: 0 0 20px rgba(0, 255, 221, 0.6),
+    0 0 40px rgba(0, 255, 221, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: textPulse 2s ease-in-out infinite 0.3s;
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    text-shadow: 0 0 20px currentColor,
+      0 0 40px currentColor,
+      0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 30px currentColor,
+      0 0 60px currentColor,
+      0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.scan-hero-3d-overlay {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px;
+  color: #ecf0f1;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 100%);
+  pointer-events: none;
+}
+
+.scan-hero-3d-overlay > * {
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .scan-hero-3d {
+    min-height: 480px;
+  }
+}

@@ -1,7 +1,9 @@
 const BannedIp = require('../models/BannedIp');
+
+// Cache banned IPs for 60 seconds to avoid DB hits on every request
 let cachedBannedIps = new Set();
 let lastCacheTime = 0;
-const CACHE_TTL = 60 * 1000;
+const CACHE_TTL = 60 * 1000; // 60 seconds
 
 async function refreshCache() {
   try {
@@ -15,6 +17,7 @@ async function refreshCache() {
 
 const checkBannedIp = async (req, res, next) => {
   try {
+    // Refresh cache if stale
     if (Date.now() - lastCacheTime > CACHE_TTL) {
       await refreshCache();
     }
@@ -30,7 +33,10 @@ const checkBannedIp = async (req, res, next) => {
 
     next();
   } catch (error) {
+    // Don't block requests if check fails
     next();
   }
 };
+
+// Export cache refresh for use when banning/unbanning
 module.exports = { checkBannedIp, refreshCache };

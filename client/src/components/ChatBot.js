@@ -1,613 +1,435 @@
-.chatbot-fab {
-  position: fixed;
-  bottom: 90px;
-  right: 24px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 180, 216, 0.6);
-  background: linear-gradient(135deg, rgba(13, 28, 50, 0.95), rgba(11, 35, 66, 0.95));
-  color: #48cae4;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 4px 20px rgba(0, 180, 216, 0.4),
-    0 0 40px rgba(0, 180, 216, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  z-index: 9999;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.chatbot-fab:hover {
-  transform: scale(1.1);
-  border-color: #00b4d8;
-  box-shadow:
-    0 6px 30px rgba(0, 180, 216, 0.5),
-    0 0 50px rgba(0, 180, 216, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.chatbot-fab:active {
-  transform: scale(0.95);
-}
-
-.chatbot-fab-icon {
-  width: 30px;
-  height: 30px;
-}
-
-.chatbot-fab-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* Pulse ring around FAB */
-.chatbot-fab-pulse {
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 180, 216, 0.4);
-  animation: chatFabPulse 2.5s ease-out infinite;
-  pointer-events: none;
-}
-
-@keyframes chatFabPulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  70% { transform: scale(1.35); opacity: 0; }
-  100% { transform: scale(1.35); opacity: 0; }
-}
-
-/* Unread badge */
-.chatbot-unread {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: linear-gradient(135deg, #ff5252, #ff1744);
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  min-width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 5px;
-  box-shadow: 0 2px 8px rgba(255, 23, 68, 0.5);
-  animation: unreadBounce 0.4s ease;
-}
-
-@keyframes unreadBounce {
-  0% { transform: scale(0); }
-  60% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-/* ---- Chat Window ---- */
-.chatbot-window {
-  position: fixed;
-  bottom: 90px;
-  right: 24px;
-  width: 380px;
-  height: 560px;
-  border-radius: 20px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  z-index: 10000;
-  border: 1px solid rgba(0, 180, 216, 0.3);
-  background: linear-gradient(160deg, rgba(13, 28, 50, 0.97), rgba(11, 35, 66, 0.97));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 10px 50px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(0, 180, 216, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  animation: chatWindowOpen 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: bottom right;
-}
-
-@keyframes chatWindowOpen {
-  0% { transform: scale(0.5) translateY(20px); opacity: 0; }
-  100% { transform: scale(1) translateY(0); opacity: 1; }
-}
-
-.chatbot-window.minimized {
-  height: auto;
-  animation: none;
-}
-
-/* ---- Header ---- */
-.chatbot-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  background: linear-gradient(135deg, rgba(15, 52, 96, 0.95), rgba(22, 33, 62, 0.95));
-  border-bottom: 1px solid rgba(0, 180, 216, 0.25);
-  cursor: pointer;
-  user-select: none;
-}
-
-.chatbot-header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.chatbot-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(0, 180, 216, 0.2), rgba(72, 202, 228, 0.15));
-  border: 1.5px solid rgba(0, 180, 216, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.chatbot-avatar-emoji {
-  font-size: 20px;
-  line-height: 1;
-}
-
-.chatbot-status-dot {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #4caf50;
-  border: 2px solid #0d1c32;
-  box-shadow: 0 0 6px rgba(76, 175, 80, 0.6);
-}
-
-.chatbot-header-info h3 {
-  color: #e0f7ff;
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: 0.3px;
-}
-
-.chatbot-status-text {
-  color: rgba(144, 224, 239, 0.7);
-  font-size: 11px;
-  font-weight: 400;
-}
-
-.chatbot-header-actions {
-  display: flex;
-  gap: 4px;
-}
-
-.chatbot-header-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  border: none;
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(144, 224, 239, 0.7);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.chatbot-header-btn:hover {
-  background: rgba(0, 180, 216, 0.15);
-  color: #48cae4;
-}
-
-.chatbot-close-btn:hover {
-  background: rgba(255, 82, 82, 0.2);
-  color: #ff5252;
-}
-
-/* ---- Chat Body ---- */
-.chatbot-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: linear-gradient(180deg, rgba(13, 28, 50, 0.5) 0%, rgba(11, 35, 66, 0.3) 100%);
-}
-
-/* Scrollbar */
-.chatbot-body::-webkit-scrollbar {
-  width: 5px;
-}
-.chatbot-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-.chatbot-body::-webkit-scrollbar-thumb {
-  background: rgba(0, 180, 216, 0.3);
-  border-radius: 10px;
-}
-.chatbot-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 180, 216, 0.5);
-}
-
-/* ---- Messages ---- */
-.chatbot-message {
-  display: flex;
-  gap: 8px;
-  animation: msgSlideIn 0.3s ease;
-}
-
-@keyframes msgSlideIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.chatbot-message.user {
-  flex-direction: row-reverse;
-}
-
-.chatbot-msg-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(0, 180, 216, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* Bot message bubble */
-.chatbot-message.bot .chatbot-msg-bubble {
-  max-width: 85%;
-  background: linear-gradient(135deg, rgba(15, 52, 96, 0.7), rgba(22, 33, 62, 0.6));
-  border: 1px solid rgba(0, 180, 216, 0.15);
-  border-radius: 4px 16px 16px 16px;
-  padding: 10px 14px;
-  position: relative;
-  backdrop-filter: blur(6px);
-}
-
-/* User message bubble */
-.chatbot-message.user .chatbot-msg-bubble {
-  max-width: 80%;
-  background: linear-gradient(135deg, rgba(0, 180, 216, 0.25), rgba(72, 202, 228, 0.15));
-  border: 1px solid rgba(0, 180, 216, 0.3);
-  border-radius: 16px 4px 16px 16px;
-  padding: 10px 14px;
-}
-
-/* Error bubble */
-.chatbot-message.error .chatbot-msg-bubble {
-  border-color: rgba(255, 82, 82, 0.3);
-}
-
-.chatbot-msg-content {
-  color: #e0f7ff;
-  font-size: 13.5px;
-  line-height: 1.55;
-  word-wrap: break-word;
-}
-
-.chatbot-msg-content strong {
-  color: #48cae4;
-  font-weight: 600;
-}
-
-.chatbot-msg-content ul {
-  margin: 6px 0;
-  padding-left: 16px;
-}
-
-.chatbot-msg-content li {
-  margin: 3px 0;
-  color: #c2e4f0;
-}
-
-.chatbot-msg-content li::marker {
-  color: #00b4d8;
-}
-
-.chatbot-msg-time {
-  display: block;
-  text-align: right;
-  font-size: 10px;
-  color: rgba(144, 224, 239, 0.4);
-  margin-top: 4px;
-}
-
-.chatbot-message.user .chatbot-msg-time {
-  text-align: left;
-}
-
-/* ---- Typing Indicator ---- */
-.chatbot-msg-bubble.typing {
-  padding: 12px 18px;
-}
-
-.chatbot-typing-dots {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
-
-.chatbot-typing-dots span {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #48cae4;
-  animation: typingDot 1.4s ease-in-out infinite;
-}
-
-.chatbot-typing-dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.chatbot-typing-dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes typingDot {
-  0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
-  30% { opacity: 1; transform: scale(1.1); }
-}
-
-/* ---- Quick Suggestions ---- */
-.chatbot-suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 4px 0;
-  animation: msgSlideIn 0.4s ease;
-}
-
-.chatbot-suggestion-btn {
-  padding: 7px 14px;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 180, 216, 0.25);
-  background: rgba(0, 180, 216, 0.08);
-  color: #90e0ef;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.chatbot-suggestion-btn:hover {
-  background: rgba(0, 180, 216, 0.2);
-  border-color: rgba(0, 180, 216, 0.5);
-  color: #48cae4;
-  transform: translateY(-1px);
-}
-
-/* ---- Input Area ---- */
-.chatbot-input-area {
-  padding: 12px 14px;
-  border-top: 1px solid rgba(0, 180, 216, 0.15);
-  background: rgba(13, 28, 50, 0.9);
-}
-
-.chatbot-input-wrapper {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  background: rgba(15, 52, 96, 0.5);
-  border: 1px solid rgba(0, 180, 216, 0.2);
-  border-radius: 14px;
-  padding: 6px 6px 6px 14px;
-  transition: border-color 0.2s;
-}
-
-.chatbot-input-wrapper:focus-within {
-  border-color: rgba(0, 180, 216, 0.5);
-  box-shadow: 0 0 12px rgba(0, 180, 216, 0.1);
-}
-
-.chatbot-input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: #e0f7ff;
-  font-size: 13.5px;
-  font-family: inherit;
-  resize: none;
-  max-height: 80px;
-  line-height: 1.4;
-  padding: 6px 0;
-}
-
-.chatbot-input::placeholder {
-  color: rgba(144, 224, 239, 0.4);
-}
-
-.chatbot-send-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(0, 180, 216, 0.15);
-  color: rgba(144, 224, 239, 0.4);
-  cursor: not-allowed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-
-.chatbot-send-btn.active {
-  background: linear-gradient(135deg, #00b4d8, #0096c7);
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 2px 10px rgba(0, 180, 216, 0.4);
-}
-
-.chatbot-send-btn.active:hover {
-  transform: scale(1.05);
-  box-shadow: 0 3px 14px rgba(0, 180, 216, 0.5);
-}
-
-.chatbot-powered-by {
-  text-align: center;
-  font-size: 10px;
-  color: rgba(144, 224, 239, 0.25);
-  margin-top: 6px;
-  letter-spacing: 0.3px;
-}
-
-/* ---- Guest Login Prompt ---- */
-.chatbot-login-prompt {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 16px;
-  background: linear-gradient(135deg, rgba(0, 180, 216, 0.08), rgba(72, 202, 228, 0.04));
-  border-top: 1px solid rgba(0, 180, 216, 0.15);
-  border-radius: 0 0 16px 16px;
-}
-
-.chatbot-lock-icon {
-  font-size: 22px;
-}
-
-.chatbot-login-prompt p {
-  margin: 0;
-  font-size: 13px;
-  color: rgba(144, 224, 239, 0.7);
-  font-weight: 500;
-}
-
-.chatbot-login-btn {
-  background: linear-gradient(135deg, #00b4d8, #48cae4);
-  color: #0d1c32;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 24px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 0.3px;
-}
-
-.chatbot-login-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(0, 180, 216, 0.4);
-}
-
-/* ---- Mobile Responsive ---- */
-@media (max-width: 480px) {
-  .chatbot-fab {
-    bottom: 75px;
-    right: 16px;
-    width: 52px;
-    height: 52px;
-  }
-
-  .chatbot-fab-icon {
-    width: 26px;
-    height: 26px;
-  }
-
-  .chatbot-window {
-    bottom: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    max-height: 100vh;
-    max-height: 100dvh;
-  }
-
-  .chatbot-header {
-    padding: 12px 14px;
-    border-radius: 0;
-  }
-
-  .chatbot-body {
-    padding: 12px;
-  }
-
-  .chatbot-message.bot .chatbot-msg-bubble,
-  .chatbot-message.user .chatbot-msg-bubble {
-    max-width: 88%;
-  }
-
-  .chatbot-suggestions {
-    gap: 5px;
-  }
-
-  .chatbot-suggestion-btn {
-    font-size: 11px;
-    padding: 6px 11px;
-  }
-}
-
-@media (max-width: 768px) and (min-width: 481px) {
-  .chatbot-window {
-    width: 340px;
-    height: 500px;
-    bottom: 80px;
-    right: 16px;
-  }
-
-  .chatbot-fab {
-    bottom: 75px;
-    right: 16px;
-  }
-}
-
-/* ---- Dark mode text selection ---- */
-.chatbot-window ::selection {
-  background: rgba(0, 180, 216, 0.3);
-  color: #e0f7ff;
-}
-
-/* ---- Navigation Buttons in Bot Messages ---- */
-.chatbot-nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin: 4px 4px 4px 0;
-  padding: 6px 14px;
-  background: linear-gradient(135deg, rgba(0, 119, 182, 0.2), rgba(72, 202, 228, 0.15));
-  border: 1px solid rgba(72, 202, 228, 0.4);
-  border-radius: 20px;
-  color: #48cae4;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  text-decoration: none;
-  font-family: inherit;
-  line-height: 1.3;
-  white-space: nowrap;
-}
-
-.chatbot-nav-btn:hover {
-  background: linear-gradient(135deg, rgba(0, 119, 182, 0.35), rgba(72, 202, 228, 0.25));
-  border-color: rgba(72, 202, 228, 0.7);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 12px rgba(0, 180, 216, 0.25);
-  color: #90e0ef;
-}
-
-.chatbot-nav-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(0, 180, 216, 0.15);
-}
+import React, { useState, useEffect, useRef } from 'react';
+import apiClient from '../utils/axiosConfig';
+import './ChatBot.css';
+
+const generateSessionId = () => {
+  return 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+};
+
+function ChatBot({ isLoggedIn, loggedInUser, onOpenLogin, onNavigate }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [sessionId] = useState(() => {
+    const stored = sessionStorage.getItem('chatSessionId');
+    if (stored) return stored;
+    const newId = generateSessionId();
+    sessionStorage.setItem('chatSessionId', newId);
+    return newId;
+  });
+  const [userName, setUserName] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [guestMessageCount, setGuestMessageCount] = useState(() => {
+    return parseInt(localStorage.getItem('chatGuestCount') || '0');
+  });
+  const [isRateLimited, setIsRateLimited] = useState(false);
+  const [hasGreeted, setHasGreeted] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+  const chatBodyRef = useRef(null);
+
+  // Sync auth state from parent props
+  useEffect(() => {
+    if (isLoggedIn && loggedInUser) {
+      setUserName(loggedInUser.name);
+      setIsAuthenticated(true);
+      setIsRateLimited(false);
+      // Reset guest limits on login
+      setGuestMessageCount(0);
+      localStorage.setItem('chatGuestCount', '0');
+    } else {
+      // Try fetching from backend as fallback
+      const checkAuth = async () => {
+        try {
+          const response = await apiClient.get('/chat/user-info');
+          if (response.data.success && response.data.authenticated && response.data.name) {
+            setUserName(response.data.name);
+            setIsAuthenticated(true);
+            setIsRateLimited(false);
+          } else {
+            setUserName(null);
+            setIsAuthenticated(false);
+            const count = parseInt(localStorage.getItem('chatGuestCount') || '0');
+            setGuestMessageCount(count);
+            if (count >= 2) setIsRateLimited(true);
+          }
+        } catch (error) {
+          setIsAuthenticated(false);
+        }
+      };
+      checkAuth();
+    }
+  }, [isLoggedIn, loggedInUser]);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isTyping]);
+
+  useEffect(() => {
+    if (isOpen && !hasGreeted) {
+      const firstName = userName ? userName.split(' ')[0] : null;
+      let greeting;
+      if (firstName) {
+        greeting = `Hi ${firstName}! 👋 I'm DengueSpot AI, your dengue prevention assistant. How can I help you today?`;
+      } else {
+        greeting = `Hi there! 👋 I'm DengueSpot AI, your dengue prevention assistant. How can I help you today?\n\n💡 *Log in for unlimited questions and personalized help!*`;
+      }
+
+      setMessages([{
+        id: 'greeting',
+        role: 'assistant',
+        content: greeting,
+        timestamp: new Date()
+      }]);
+      setHasGreeted(true);
+    }
+  }, [isOpen, hasGreeted, userName]);
+
+  // When user logs in mid-session, add a welcome message
+  useEffect(() => {
+    if (isLoggedIn && loggedInUser && hasGreeted) {
+      const firstName = loggedInUser.name ? loggedInUser.name.split(' ')[0] : 'there';
+      setMessages(prev => [...prev, {
+        id: 'login_' + Date.now(),
+        role: 'assistant',
+        content: `Welcome back, ${firstName}! 🎉 You now have unlimited questions. Ask me anything about dengue!`,
+        timestamp: new Date()
+      }]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, loggedInUser]);
+
+  useEffect(() => {
+    if (isOpen && !isMinimized && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 300);
+    }
+  }, [isOpen, isMinimized]);
+
+  useEffect(() => {
+    if (!isOpen || isMinimized) return;
+    setUnreadCount(0);
+  }, [isOpen, isMinimized]);
+
+  const sendMessage = async () => {
+    const text = input.trim();
+    if (!text || isTyping || isRateLimited) return;
+
+    const userMessage = {
+      id: 'user_' + Date.now(),
+      role: 'user',
+      content: text,
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsTyping(true);
+
+    try {
+      const response = await apiClient.post('/chat', {
+        message: text,
+        sessionId
+      });
+
+      if (response.data.metadata?.rateLimited) {
+        setIsRateLimited(true);
+      }
+
+      if (!isAuthenticated) {
+        const newCount = guestMessageCount + 1;
+        setGuestMessageCount(newCount);
+        localStorage.setItem('chatGuestCount', newCount.toString());
+        if (newCount >= 2) {
+          setIsRateLimited(true);
+        }
+      }
+
+      const botMessage = {
+        id: 'bot_' + Date.now(),
+        role: 'assistant',
+        content: response.data.response || "I couldn't process that. Please try again.",
+        timestamp: new Date(),
+        metadata: response.data.metadata
+      };
+
+      setMessages(prev => [...prev, botMessage]);
+
+      if (isMinimized) {
+        setUnreadCount(prev => prev + 1);
+      }
+    } catch (error) {
+      const errorMessage = {
+        id: 'error_' + Date.now(),
+        role: 'assistant',
+        content: "I'm having trouble connecting right now. Please try again in a moment. 🙏",
+        timestamp: new Date(),
+        isError: true
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const clearChat = async () => {
+    try {
+      await apiClient.delete(`/chat/memory/${sessionId}`);
+    } catch (e) { /* ignore */ }
+
+    const firstName = userName ? userName.split(' ')[0] : null;
+    const greeting = firstName
+      ? `Hi ${firstName}! 👋 Fresh conversation started. How can I help you?`
+      : `Hi there! 👋 Fresh conversation started. How can I help you?`;
+
+    setMessages([{
+      id: 'greeting_new',
+      role: 'assistant',
+      content: greeting,
+      timestamp: new Date()
+    }]);
+  };
+
+  const suggestions = [
+    '🦟 What are dengue symptoms?',
+    '💊 How to treat dengue at home?',
+    '🛡️ Prevention tips',
+    '� Where is the chat room?'
+  ];
+
+  const handleSuggestion = (text) => {
+    setInput(text);
+    setTimeout(() => sendMessage(), 100);
+  };
+
+  const NAV_LABELS = {
+    scan: '🔍 Go to Scan',
+    checklist: '✅ Go to Checklist',
+    map: '🗺️ Go to Hotspots',
+    learn: '📚 Go to Learn',
+    community: '💬 Go to Community Chat'
+  };
+
+  const formatMessage = (text) => {
+    if (!text) return '';
+
+    // Bold
+    let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Bullet points
+    formatted = formatted.replace(/^[•-]\s+(.+)$/gm, '<li>$1</li>');
+    formatted = formatted.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+    // Fix nested uls
+    formatted = formatted.replace(/<\/ul>\s*<ul>/g, '');
+    // Convert [NAV:xxx] to clickable buttons
+    formatted = formatted.replace(/\[NAV:(scan|checklist|map|learn|community)\]/gi, (match, tab) => {
+      const label = NAV_LABELS[tab.toLowerCase()] || tab;
+      return `<button class="chatbot-nav-btn" data-nav="${tab.toLowerCase()}">${label}</button>`;
+    });
+    // Newlines
+    formatted = formatted.replace(/\n/g, '<br/>');
+    // Clean up
+    formatted = formatted.replace(/<br\/>\s*<ul>/g, '<ul>');
+    formatted = formatted.replace(/<\/ul>\s*<br\/>/g, '</ul>');
+
+    return formatted;
+  };
+
+  const formatTime = (date) => {
+    return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  return (
+    <>
+      {!isOpen && (
+        <button
+          className="chatbot-fab"
+          onClick={() => setIsOpen(true)}
+          title="Chat with DengueSpot AI"
+        >
+          <div className="chatbot-fab-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 5.92 2 10.5c0 2.56 1.34 4.85 3.43 6.38L4 22l4.55-2.53C9.63 19.82 10.79 20 12 20c5.52 0 10-3.92 10-8.5S17.52 2 12 2z" fill="currentColor"/>
+              <circle cx="8" cy="10.5" r="1.2" fill="#0d1c32"/>
+              <circle cx="12" cy="10.5" r="1.2" fill="#0d1c32"/>
+              <circle cx="16" cy="10.5" r="1.2" fill="#0d1c32"/>
+            </svg>
+          </div>
+          {unreadCount > 0 && (
+            <span className="chatbot-unread">{unreadCount}</span>
+          )}
+          <div className="chatbot-fab-pulse" />
+        </button>
+      )}
+
+      {isOpen && (
+        <div className={`chatbot-window ${isMinimized ? 'minimized' : ''}`}>
+          <div className="chatbot-header" onClick={() => isMinimized && setIsMinimized(false)}>
+            <div className="chatbot-header-left">
+              <div className="chatbot-avatar">
+                <span className="chatbot-avatar-emoji">🦟</span>
+                <span className="chatbot-status-dot" />
+              </div>
+              <div className="chatbot-header-info">
+                <h3>DengueSpot AI</h3>
+                <span className="chatbot-status-text">
+                  {isTyping ? 'Typing...' : 'Online • RAG powered'}
+                </span>
+              </div>
+            </div>
+            <div className="chatbot-header-actions">
+              <button
+                className="chatbot-header-btn"
+                onClick={(e) => { e.stopPropagation(); clearChat(); }}
+                title="Clear chat"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+              </button>
+              <button
+                className="chatbot-header-btn"
+                onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}
+                title={isMinimized ? 'Expand' : 'Minimize'}
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  {isMinimized
+                    ? <path d="M4 8h16v2H4z"/>
+                    : <path d="M4 8h16v2H4z"/>
+                  }
+                </svg>
+              </button>
+              <button
+                className="chatbot-header-btn chatbot-close-btn"
+                onClick={(e) => { e.stopPropagation(); setIsOpen(false); setIsMinimized(false); }}
+                title="Close"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {!isMinimized && (
+            <>
+              <div className="chatbot-body" ref={chatBodyRef}>
+                {messages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`chatbot-message ${msg.role === 'user' ? 'user' : 'bot'} ${msg.isError ? 'error' : ''}`}
+                  >
+                    {msg.role === 'assistant' && (
+                      <div className="chatbot-msg-avatar">🦟</div>
+                    )}
+                    <div className="chatbot-msg-bubble">
+                      <div
+                        className="chatbot-msg-content"
+                        dangerouslySetInnerHTML={{ __html: formatMessage(msg.content) }}
+                        onClick={(e) => {
+                          const navBtn = e.target.closest('[data-nav]');
+                          if (navBtn && onNavigate) {
+                            onNavigate(navBtn.dataset.nav);
+                          }
+                        }}
+                      />
+                      <span className="chatbot-msg-time">{formatTime(msg.timestamp)}</span>
+                    </div>
+                  </div>
+                ))}
+
+                {isTyping && (
+                  <div className="chatbot-message bot">
+                    <div className="chatbot-msg-avatar">🦟</div>
+                    <div className="chatbot-msg-bubble typing">
+                      <div className="chatbot-typing-dots">
+                        <span /><span /><span />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {messages.length <= 1 && !isTyping && (
+                  <div className="chatbot-suggestions">
+                    {suggestions.map((s, i) => (
+                      <button
+                        key={i}
+                        className="chatbot-suggestion-btn"
+                        onClick={() => handleSuggestion(s)}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                <div ref={messagesEndRef} />
+              </div>
+
+              <div className="chatbot-input-area">
+                {isRateLimited && !isAuthenticated ? (
+                  <div className="chatbot-login-prompt">
+                    <span className="chatbot-lock-icon">🔒</span>
+                    <p>Log in for unlimited questions</p>
+                    <button 
+                      className="chatbot-login-btn"
+                      onClick={() => {
+                        if (onOpenLogin) {
+                          onOpenLogin();
+                        } else {
+                          const loginBtn = document.querySelector('.login-btn, .auth-login-btn, [data-login]');
+                          if (loginBtn) loginBtn.click();
+                          else window.dispatchEvent(new CustomEvent('openLogin'));
+                        }
+                      }}
+                    >
+                      Login / Sign Up
+                    </button>
+                  </div>
+                ) : (
+                <div className="chatbot-input-wrapper">
+                  <textarea
+                    ref={inputRef}
+                    className="chatbot-input"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder={!isAuthenticated ? `Ask about dengue... (${2 - guestMessageCount} free left)` : "Ask about dengue..."}
+                    rows={1}
+                    disabled={isTyping}
+                  />
+                  <button
+                    className={`chatbot-send-btn ${input.trim() && !isTyping ? 'active' : ''}`}
+                    onClick={sendMessage}
+                    disabled={!input.trim() || isTyping}
+                  >
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                  </button>
+                </div>
+                )}
+                <div className="chatbot-powered-by">
+                  Powered by Groq + Pinecone RAG
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+export default ChatBot;

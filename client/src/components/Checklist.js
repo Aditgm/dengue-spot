@@ -18,6 +18,7 @@ function Checklist() {
       updateCompletedCount(items);
     } catch (error) {
       console.error('Error fetching checklist:', error);
+      // Use default checklist
       const defaultItems = getDefaultChecklist();
       setChecklist(defaultItems);
       updateCompletedCount(defaultItems);

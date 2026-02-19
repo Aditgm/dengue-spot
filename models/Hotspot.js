@@ -13,6 +13,7 @@ const hotspotSchema = new mongoose.Schema({
     min: -180,
     max: 180
   },
+  // GeoJSON for geospatial queries
   location: {
     type: {
       type: String,

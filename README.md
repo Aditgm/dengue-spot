@@ -1,6 +1,6 @@
 ## 🦟 DengueSpot — Community Dengue Prevention App
 
-A full‑stack web app that helps households remove mosquito breeding sites, report neighborhood hotspots, and get faster community action. Built for seasonal dengue risk (India) and scalable as a full production-ready app.
+A full‑stack web app that helps households remove mosquito breeding sites, report neighborhood hotspots, and get faster community action. Built for seasonal dengue risk (Bihar) and scalable as a startup.
 
 ---
 
@@ -19,15 +19,22 @@ A full‑stack web app that helps households remove mosquito breeding sites, rep
 
 ---
 
-## Screenshots / visuals
+## Screenshots / visuals (add yours here)
 
 Create this folder and add screenshots, then update the paths:
 
+- `docs/screenshots/01-scan.png`
+- `docs/screenshots/02-checklist.png`
+- `docs/screenshots/03-hotspots.png`
+- `docs/screenshots/04-chatbot.png`
+- `docs/screenshots/05-community-chat.png`
+- `docs/screenshots/06-weather.png`
+- `docs/screenshots/07-leaderboard.png`
 
-![Scan](docs/screenshots/scan.png)
-![Checklist](docs/screenshots/checklist.png)
-![Hotspots](docs/screenshots/hotspots.png)
-![Chatbot](docs/screenshots/chatbot.png)
+![Scan](docs/screenshots/01-scan.png)
+![Checklist](docs/screenshots/02-checklist.png)
+![Hotspots](docs/screenshots/03-hotspots.png)
+![Chatbot](docs/screenshots/04-chatbot.png)
 
 ---
 

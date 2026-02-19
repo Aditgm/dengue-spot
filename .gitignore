@@ -1,0 +1,68 @@
+node_modules/
+client/node_modules/
+client/build/
+uploads/*.jpg
+uploads/*.png
+uploads/*.webp
+.env
+.env.production
+client/.env
+.DS_Store
+*.log
+
+# Keep uploads dir but not the files
+!uploads/.gitkeep
+
+# Documentation files (reference only, not needed in repo)
+AUTH_IMPLEMENTATION_GUIDE.md
+AUTHENTICATION_COMPLETE.md
+CODE_CLEANUP_SUMMARY.md
+COMPLETE_IMPROVEMENTS_SUMMARY.md
+DATA_STORAGE_ARCHITECTURE.md
+INFERENCE_SDK_GUIDE.md
+LEADERBOARD_*.md
+LOGIN_FIXES.md
+PRODUCTION_IMPROVEMENTS.md
+PROJECT_SUMMARY.md
+QUICKSTART.md
+REDIS_QUICK_START.md
+REST_API_SIMPLE_GUIDE.md
+REVISION_COMPLETE.md
+ROBOFLOW_*.md
+RUN_ME_FIRST.txt
+SETUP.md
+SOCIAL_LOGIN_SETUP.md
+START_SERVERS.md
+STEP_BY_STEP_REDIS_SETUP.md
+STORAGE_CODE_LOCATIONS.md
+STORAGE_EXPLAINED_SIMPLE.md
+UI_UX_IMPROVEMENTS.md
+
+# Scripts (local dev only)
+start.bat
+start-dev.ps1
+stop-dev.ps1
+install-redis-auth.bat
+install-redis-auth.sh
+
+# Test files
+test-*.js
+test-*.txt
+test.html
+client/public/test.html
+server-out.txt
+server-err.txt
+
+# Large binary files (>25MB — use Git LFS or download separately)
+client/public/models/mosquito.glb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+
+

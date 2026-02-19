@@ -51,6 +51,8 @@ const chatMessageSchema = new mongoose.Schema({
 
 // Index for fetching room messages with pagination
 chatMessageSchema.index({ room: 1, createdAt: -1 });
+
+// TTL: auto-delete messages after 7 days
 chatMessageSchema.index({ createdAt: 1 }, { expireAfterSeconds: 7 * 24 * 60 * 60 });
 
 // Fix TTL index if it was previously created with different expiry

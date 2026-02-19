@@ -27,11 +27,13 @@ const otpSchema = new mongoose.Schema({
   expiresAt: {
     type: Date,
     required: true,
-    index: { expireAfterSeconds: 0 }
+    index: { expireAfterSeconds: 0 } // TTL index — auto-deletes expired OTPs
   }
 }, {
   timestamps: true
 });
+
+// Index for quick lookup
 otpSchema.index({ email: 1, purpose: 1 });
 
 module.exports = mongoose.model('Otp', otpSchema);

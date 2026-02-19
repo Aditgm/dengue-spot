@@ -32,6 +32,8 @@ const rateLimiter = (options = {}) => {
       if (count === 1) {
         await redisClient.expire(key, Math.floor(windowMs / 1000));
       }
+
+      // Rate limit headers
       res.setHeader('X-RateLimit-Limit', max);
       res.setHeader('X-RateLimit-Remaining', Math.max(0, max - count));
       res.setHeader('X-RateLimit-Reset', Math.floor(Date.now() / 1000) + Math.floor(windowMs / 1000));

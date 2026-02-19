@@ -1,0 +1,538 @@
+{
+  "metadata": {
+    "version": "2.1",
+    "lastUpdated": "2026-02-18",
+    "totalChunks": 88,
+    "description": "Comprehensive dengue knowledge base for DengueSpot RAG chatbot"
+  },
+  "chunks": [
+    {
+      "id": "dengue-overview-1",
+      "category": "overview",
+      "title": "What is Dengue?",
+      "content": "Dengue is a mosquito-borne viral infection caused by the dengue virus (DENV). It is transmitted to humans through the bite of infected Aedes aegypti and Aedes albopictus mosquitoes. Dengue is found in tropical and subtropical regions worldwide, with about 400 million infections occurring every year. The virus has four distinct serotypes (DENV-1 to DENV-4), meaning a person can be infected up to four times."
+    },
+    {
+      "id": "dengue-overview-2",
+      "category": "overview",
+      "title": "Dengue Global Impact",
+      "content": "Dengue is the most rapidly spreading mosquito-borne viral disease in the world. Before 1970, only 9 countries experienced severe dengue epidemics. The disease is now endemic in more than 100 countries across WHO regions. An estimated 3.9 billion people in 129 countries are at risk of dengue infection. India accounts for about 34% of the global dengue burden."
+    },
+    {
+      "id": "dengue-overview-3",
+      "category": "overview",
+      "title": "Dengue in India",
+      "content": "India is one of the most dengue-affected countries. Major outbreaks occur during and after the monsoon season (July to November). States like Maharashtra, Kerala, Karnataka, Tamil Nadu, Delhi, Rajasthan, and West Bengal report the highest cases. Urban areas are more affected due to higher population density and more breeding sites."
+    },
+    {
+      "id": "symptoms-1",
+      "category": "symptoms",
+      "title": "Common Dengue Symptoms",
+      "content": "Common symptoms of dengue fever include: high fever (40°C/104°F), severe headache especially behind the eyes (retro-orbital pain), muscle and joint pains (also called 'breakbone fever'), nausea and vomiting, skin rash that appears 2-5 days after fever onset, and mild bleeding from nose or gums. Symptoms typically appear 4-10 days after being bitten by an infected mosquito and last 2-7 days."
+    },
+    {
+      "id": "symptoms-2",
+      "category": "symptoms",
+      "title": "Warning Signs of Severe Dengue",
+      "content": "Warning signs of severe dengue (dengue hemorrhagic fever) include: severe abdominal pain, persistent vomiting, rapid breathing, bleeding gums or nose, blood in vomit or stool, fatigue and restlessness, liver enlargement, and a rapid decrease in platelet count. These warning signs usually appear 24-48 hours after the fever subsides. Seek immediate medical attention if any warning sign appears."
+    },
+    {
+      "id": "symptoms-3",
+      "category": "symptoms",
+      "title": "Dengue Shock Syndrome",
+      "content": "Dengue Shock Syndrome (DSS) is the most severe form of dengue. It occurs when blood pressure drops dangerously low due to plasma leakage. Symptoms include cold clammy skin, weak rapid pulse, narrowing pulse pressure, severe abdominal pain, and altered consciousness. DSS can be fatal within 12-24 hours if not treated. It requires immediate hospitalization with IV fluid replacement."
+    },
+    {
+      "id": "symptoms-4",
+      "category": "symptoms",
+      "title": "Dengue Phases",
+      "content": "Dengue illness has three phases: 1) Febrile Phase (Days 1-3): High fever, headache, body aches, facial flushing. 2) Critical Phase (Days 3-7): Fever drops, but this is the most dangerous period. Plasma leakage, bleeding, and organ damage can occur. Watch for warning signs. 3) Recovery Phase (Days 7-10): Fluid is reabsorbed, platelet count rises, appetite returns. Rash may appear. Patient feels better but fatigue can persist for weeks."
+    },
+    {
+      "id": "treatment-1",
+      "category": "treatment",
+      "title": "Dengue Treatment Guidelines",
+      "content": "There is no specific antiviral treatment for dengue. Treatment is supportive: rest in bed, drink plenty of fluids (ORS, coconut water, juices), take paracetamol/acetaminophen for fever and pain, avoid aspirin and ibuprofen (they increase bleeding risk), monitor platelet count daily, and seek hospital care if warning signs appear. Most dengue patients recover within 1-2 weeks with proper home care."
+    },
+    {
+      "id": "treatment-2",
+      "category": "treatment",
+      "title": "When to Go to Hospital",
+      "content": "Go to the hospital immediately if you experience: persistent vomiting (3+ episodes in 12 hours), severe abdominal pain, bleeding from any site, difficulty breathing, extreme fatigue or drowsiness, platelet count below 50,000, reduced urination, or cold/clammy extremities. Hospital treatment includes IV fluids, platelet monitoring, and blood transfusion if needed."
+    },
+    {
+      "id": "treatment-3",
+      "category": "treatment",
+      "title": "Home Care for Dengue",
+      "content": "Home care for dengue includes: 1) Fluid intake: Drink 3-5 liters daily - ORS, coconut water, lemon water, soups. 2) Diet: Eat light, easily digestible food - khichdi, porridge, fruits like papaya and pomegranate. 3) Rest: Complete bed rest for at least 7 days. 4) Monitoring: Check temperature every 4 hours, track fluid intake and urine output, get daily blood tests from Day 3. 5) Avoid: No aspirin, no ibuprofen, no antibiotics without doctor's advice."
+    },
+    {
+      "id": "treatment-4",
+      "category": "treatment",
+      "title": "Platelet Count in Dengue",
+      "content": "Normal platelet count is 150,000-400,000 per microliter. In dengue, platelets typically start dropping from Day 3-4 and reach lowest around Day 6-7. Above 100,000: Usually safe, home care sufficient. 50,000-100,000: Close monitoring required, daily blood tests. 20,000-50,000: Hospital admission recommended. Below 20,000: Critical, may need platelet transfusion. Platelets naturally recover after the critical phase, usually by Day 8-10."
+    },
+    {
+      "id": "prevention-1",
+      "category": "prevention",
+      "title": "Source Reduction - Most Effective Prevention",
+      "content": "Source reduction is the most effective way to prevent dengue. This means eliminating mosquito breeding sites by: emptying and scrubbing water containers weekly, covering water storage tanks with tight lids, removing old tires, cans, and bottles that collect rainwater, cleaning roof gutters and drains, filling tree holes and rock crevices, and disposing of waste properly. A single Aedes mosquito can lay 100-200 eggs in a container as small as a bottle cap."
+    },
+    {
+      "id": "prevention-2",
+      "category": "prevention",
+      "title": "Personal Protection from Mosquitoes",
+      "content": "Personal protection measures include: using mosquito repellent containing DEET, picaridin, or oil of lemon eucalyptus, wearing long sleeves and pants especially during dawn and dusk, using mosquito nets while sleeping (even during daytime as Aedes mosquitoes bite during day), installing window and door screens, using mosquito coils or electric vaporizers indoors, and avoiding dark-colored clothing as it attracts mosquitoes."
+    },
+    {
+      "id": "prevention-3",
+      "category": "prevention",
+      "title": "Weekly Dry Day Practice",
+      "content": "The 'Dry Day' practice is a weekly prevention routine where you: pick one day each week (e.g., Sunday) to empty ALL water containers in and around your home, scrub container walls to remove mosquito eggs (eggs stick to walls), turn containers upside down when not in use, check flower vases, AC drip trays, pet bowls, and bird baths, and inspect the roof, balcony, and garden for any water accumulation. This breaks the mosquito breeding cycle as eggs need 7+ days to develop."
+    },
+    {
+      "id": "prevention-4",
+      "category": "prevention",
+      "title": "Community Prevention Strategies",
+      "content": "Community-level prevention includes: organizing neighborhood cleanup drives, reporting breeding sites to local authorities, fogging and spraying in affected areas, conducting awareness campaigns, maintaining public drainage systems, using larvicides in water bodies that cannot be drained, releasing Wolbachia-infected mosquitoes (biological control), and establishing community surveillance programs to detect outbreaks early."
+    },
+    {
+      "id": "prevention-5",
+      "category": "prevention",
+      "title": "Natural Mosquito Repellents",
+      "content": "Natural mosquito repellents include: neem oil (apply on skin or burn neem leaves), citronella candles and plants, lavender oil, eucalyptus oil, tulsi (holy basil) plants near windows, camphor (burn or dissolve in water), lemongrass plants, marigold flowers around the house, and garlic spray. While natural repellents help, they are generally less effective than DEET-based products for high-risk areas."
+    },
+    {
+      "id": "mosquito-1",
+      "category": "mosquito",
+      "title": "Aedes Aegypti Mosquito",
+      "content": "Aedes aegypti is the primary dengue vector. Key characteristics: small, dark mosquito with white stripes on legs and body, bites primarily during daytime (peak: early morning and late afternoon), breeds in clean, stagnant water in artificial containers, prefers to live indoors near humans, has a flight range of only 100-200 meters, can lay eggs in as little as a bottle cap of water, eggs can survive drying for up to a year, and one female lays 100-200 eggs at a time."
+    },
+    {
+      "id": "mosquito-2",
+      "category": "mosquito",
+      "title": "Mosquito Breeding Sites",
+      "content": "Common mosquito breeding sites include: uncovered water tanks, flower pot saucers, old tires, discarded bottles and cans, clogged roof gutters, bird baths, pet water bowls, AC drip trays, construction site puddles, coconut shells, refrigerator drip trays, unused swimming pools, tree holes, and even small bottle caps with water. Mosquitoes need only 7-10 days to develop from egg to adult in stagnant water."
+    },
+    {
+      "id": "mosquito-3",
+      "category": "mosquito",
+      "title": "Mosquito Life Cycle",
+      "content": "The Aedes mosquito life cycle has four stages: 1) Egg: Laid on water surface or moist container walls, hatch in 1-2 days. 2) Larva: Lives in water, feeds on microorganisms, goes through 4 instars over 4-5 days. 3) Pupa: Non-feeding stage, rests at water surface, develops into adult in 1-2 days. 4) Adult: Emerges from water, ready to mate within 1-2 days. Total cycle: 7-10 days. Adults live 2-4 weeks."
+    },
+    {
+      "id": "mosquito-4",
+      "category": "mosquito",
+      "title": "Peak Mosquito Activity Times",
+      "content": "Aedes mosquitoes are most active during: early morning (6 AM - 9 AM) and late afternoon (4 PM - 7 PM). Unlike other mosquitoes, Aedes bites during DAYTIME, not at night. Peak biting activity is 2 hours after sunrise and several hours before sunset. They rest in dark, cool places during the hottest part of the day (inside closets, under beds, behind curtains). During monsoon season, activity increases significantly."
+    },
+    {
+      "id": "weather-1",
+      "category": "weather",
+      "title": "Weather and Dengue Risk",
+      "content": "Weather significantly affects dengue risk: Temperature 25-35°C is ideal for mosquito breeding and virus replication. High humidity (above 60%) increases mosquito survival and activity. Rainfall creates breeding sites but heavy rain can flush away larvae. Stagnant water after rain is the biggest risk factor. Monsoon season (June-September in India) sees the highest dengue transmission. Post-monsoon (October-November) also has high risk due to accumulated breeding sites."
+    },
+    {
+      "id": "weather-2",
+      "category": "weather",
+      "title": "Dengue Risk Scoring",
+      "content": "DengueSpot calculates dengue risk using a weighted algorithm: Temperature contributes 30% (optimal breeding at 25-35°C), Humidity contributes 25% (higher humidity means higher risk), Rainfall contributes 25% (moderate rain creates most breeding sites), Wind speed contributes 10% (low wind means mosquitoes fly more freely), and Seasonal factor contributes 10% (monsoon months have highest baseline risk). Risk levels: 0-30 Low, 31-55 Moderate, 56-75 High, 76-100 Critical."
+    },
+    {
+      "id": "myths-1",
+      "category": "myths",
+      "title": "Myth: Dengue Spreads Person to Person",
+      "content": "MYTH: Dengue spreads from person to person like a cold or flu. FACT: Dengue does NOT spread directly between people. It requires a mosquito vector. The cycle is: infected person → mosquito bites them → virus develops in mosquito for 8-12 days → mosquito bites another person → that person gets infected. You cannot get dengue from touching, coughing, sneezing, or sharing food with an infected person."
+    },
+    {
+      "id": "myths-2",
+      "category": "myths",
+      "title": "Myth: Only Dirty Water Breeds Mosquitoes",
+      "content": "MYTH: Mosquitoes only breed in dirty, stagnant water. FACT: Aedes aegypti actually PREFERS clean, stagnant water. It breeds in artificial containers with clear water - flower vases, water coolers, overhead tanks, and even holy water containers in temples. Dirty drain water is more associated with Culex mosquitoes (which cause filariasis, not dengue). Always empty clean water containers weekly."
+    },
+    {
+      "id": "myths-3",
+      "category": "myths",
+      "title": "Myth: Papaya Leaf Juice Cures Dengue",
+      "content": "MYTH: Drinking papaya leaf juice cures dengue and increases platelet count. FACT: While some studies suggest papaya leaf extract (carica papaya) may have a modest effect on platelet count, it is NOT a proven cure for dengue. There is no scientific consensus on its effectiveness. It should NEVER replace proper medical care. Patients should focus on hydration, rest, and monitoring, and seek hospital care for severe cases."
+    },
+    {
+      "id": "myths-4",
+      "category": "myths",
+      "title": "Myth: You Can Only Get Dengue Once",
+      "content": "MYTH: Once you recover from dengue, you're immune forever. FACT: There are 4 serotypes of dengue virus (DENV-1 to DENV-4). Infection with one serotype gives lifelong immunity only to THAT specific serotype, but only temporary (about 2 years) cross-protection against other serotypes. A second infection with a DIFFERENT serotype can actually be MORE severe due to antibody-dependent enhancement (ADE). This is why some people get severe dengue on their second infection."
+    },
+    {
+      "id": "myths-5",
+      "category": "myths",
+      "title": "Myth: Mosquito Coils Kill All Mosquitoes",
+      "content": "MYTH: Mosquito coils and repellents completely protect against dengue. FACT: While mosquito coils, sprays, and repellents help reduce bites, they do NOT provide 100% protection. The active ingredient (allethrin/prallethrin) mainly repels or stuns mosquitoes temporarily. Source reduction (eliminating breeding sites) is far more effective. Use repellents as an additional measure, not the only protection."
+    },
+    {
+      "id": "myths-6",
+      "category": "myths",
+      "title": "Myth: AC Rooms Are Safe from Dengue",
+      "content": "MYTH: Air conditioning kills mosquitoes and prevents dengue. FACT: While mosquitoes are less active in very cold temperatures, standard AC (22-26°C) does NOT kill mosquitoes. Aedes mosquitoes can survive and bite in air-conditioned rooms. They often enter through open doors and windows. AC units also have drip trays that can collect water and become breeding sites if not cleaned regularly."
+    },
+    {
+      "id": "vaccine-1",
+      "category": "vaccine",
+      "title": "Dengue Vaccines",
+      "content": "Two dengue vaccines exist: 1) Dengvaxia (CYD-TDV) by Sanofi: Approved in several countries, recommended ONLY for people aged 9-45 who have had previous dengue infection (seropositive). NOT recommended for seronegative individuals as it may increase severe dengue risk. 2) TAK-003 (Qdenga) by Takeda: Newer vaccine showing promise for both seropositive and seronegative individuals. Approved in the EU and several countries. Both require medical consultation before administration."
+    },
+    {
+      "id": "vaccine-2",
+      "category": "vaccine",
+      "title": "Dengue Vaccine Status in India",
+      "content": "As of 2025, India does not have a widely available dengue vaccine in its national immunization program. The Indian Council of Medical Research (ICMR) has been conducting trials. A locally developed vaccine candidate is in clinical trials. The WHO recommends vaccination only for seropositive individuals. Travelers to India should rely on prevention (source reduction and personal protection) rather than vaccination."
+    },
+    {
+      "id": "firstaid-1",
+      "category": "firstaid",
+      "title": "First Aid for Dengue Fever",
+      "content": "If you suspect dengue: 1) Start tracking temperature every 4 hours. 2) Begin oral rehydration immediately - ORS solution, coconut water, or lemon water. 3) Take paracetamol (NOT aspirin or ibuprofen) for fever above 101°F. 4) Apply cold sponge bath for high fever. 5) Rest completely, avoid physical activity. 6) Get NS1 antigen test done within first 5 days. 7) Get complete blood count (CBC) to check platelets. 8) Visit doctor if fever persists beyond 2 days or any warning sign appears."
+    },
+    {
+      "id": "firstaid-2",
+      "category": "firstaid",
+      "title": "Dengue Emergency Kit",
+      "content": "Every household in dengue-prone areas should have: ORS packets (at least 10), paracetamol tablets (500mg), digital thermometer, mosquito repellent cream/spray, mosquito net, list of nearby hospitals with dengue treatment facilities, emergency contact numbers, and a dengue monitoring chart to track temperature, fluid intake, urine output, and platelet count."
+    },
+    {
+      "id": "diagnosis-1",
+      "category": "diagnosis",
+      "title": "Dengue Testing and Diagnosis",
+      "content": "Dengue is diagnosed through blood tests: 1) NS1 Antigen Test: Detects dengue virus protein, most accurate in first 5 days of fever, results in hours. 2) IgM Antibody Test: Detects antibodies produced after Day 5, indicates current or recent infection. 3) IgG Antibody Test: Detects past infection, helps determine primary vs secondary infection. 4) Complete Blood Count (CBC): Shows platelet count and hematocrit level. 5) Dengue PCR: Most accurate, identifies specific serotype. Cost: NS1 test costs ₹300-800 in India."
+    },
+    {
+      "id": "children-1",
+      "category": "children",
+      "title": "Dengue in Children",
+      "content": "Children are particularly vulnerable to dengue. In children, symptoms may be milder initially but can progress rapidly to severe dengue. Key points: Children under 1 year are at highest risk for severe dengue, school-going children (5-15 years) have the highest infection rates, children may not express symptoms clearly so watch for irritability and reduced appetite, dehydration occurs faster in children, and weight-based paracetamol dosing is important. Take children to hospital if they show persistent vomiting, abdominal pain, or lethargy."
+    },
+    {
+      "id": "children-2",
+      "category": "children",
+      "title": "Protecting Children from Dengue",
+      "content": "To protect children from dengue: ensure schools eliminate breeding sites, apply child-safe mosquito repellent before school, make children wear full-sleeve uniforms during monsoon, use mosquito nets for napping children, keep school water tanks covered and clean, conduct awareness sessions in schools, monitor children for fever during dengue season, and keep paracetamol syrup at home during monsoon months."
+    },
+    {
+      "id": "pregnancy-1",
+      "category": "pregnancy",
+      "title": "Dengue During Pregnancy",
+      "content": "Dengue during pregnancy poses special risks: increased risk of pre-eclampsia and preterm birth, risk of vertical transmission (mother to baby), low platelet count increases bleeding risk during delivery, and some dengue symptoms overlap with pregnancy complications. Pregnant women should: take extra precautions against mosquito bites, seek immediate medical care for any fever, avoid self-medication (many drugs unsafe in pregnancy), and deliver in a hospital with blood bank facilities if infected."
+    },
+    {
+      "id": "diet-1",
+      "category": "diet",
+      "title": "Diet During Dengue Recovery",
+      "content": "Recommended foods during dengue: 1) Fluids: ORS, coconut water, lemon water, soups, buttermilk (3-5 liters daily). 2) Fruits: Papaya, pomegranate, kiwi, orange, and dragon fruit (may support platelet production). 3) Proteins: Boiled eggs, lean chicken soup, fish (easy to digest). 4) Carbs: Khichdi, porridge, rice, toast, crackers. 5) Vegetables: Spinach, broccoli, pumpkin soup. Foods to AVOID: Spicy food, oily/fried food, caffeine, alcohol, and cold drinks."
+    },
+    {
+      "id": "diet-2",
+      "category": "diet",
+      "title": "Foods That May Help Increase Platelets",
+      "content": "Foods believed to support platelet recovery in dengue (note: limited scientific evidence): papaya leaf extract (most studied, some evidence of modest benefit), pomegranate juice (rich in iron and antioxidants), goat milk (traditional remedy in some regions), kiwi fruit (vitamin C supports immunity), wheatgrass juice, pumpkin (rich in Vitamin A), and spinach (folate helps blood cell production). These should supplement, NOT replace, medical treatment."
+    },
+    {
+      "id": "denguespot-1",
+      "category": "app",
+      "title": "What is DengueSpot?",
+      "content": "DengueSpot is a community dengue prevention and reporting app designed to help people fight dengue at the grassroots level. The app includes these features: AI-powered scanning of potential mosquito breeding sites using Roboflow image recognition (Scan tab), community hotspot reporting with geolocation mapping (Hotspot Map), weekly prevention checklists for home and neighborhood (Checklist), educational content about dengue facts and myths vs facts (Learn section), real-time dengue news updates (News Ticker), weather-based dengue risk assessment with 5-day forecast (Weather Alert badge), a leaderboard ranking top community reporters, and an AI chatbot assistant (this chat). The app uses React frontend, Node.js backend, MongoDB for data, and Redis for caching."
+    },
+    {
+      "id": "denguespot-2",
+      "category": "app",
+      "title": "How to Use DengueSpot Scanner",
+      "content": "To use the DengueSpot scanner: 1) Go to the Scan tab. 2) Take a photo of a potential breeding site (bucket, tire, container with water). 3) Upload the image. 4) The AI model analyzes the image for mosquito breeding risk factors. 5) Get actionable advice on how to eliminate the detected breeding site. 6) Report the location as a hotspot if needed. The scanner uses a Roboflow AI model trained to detect common breeding site objects like buckets, tires, pots, tanks, and containers."
+    },
+    {
+      "id": "denguespot-3",
+      "category": "app",
+      "title": "DengueSpot Hotspot Map",
+      "content": "The DengueSpot hotspot map shows reported breeding sites in your area. You can: view all reported hotspots on an interactive map, see risk levels (low, medium, high) color-coded, report new hotspots with description and photo, track cleanup status of reported sites, and identify high-risk areas in your neighborhood. Community reporting helps local authorities prioritize areas for fogging and cleanup drives."
+    },
+    {
+      "id": "denguespot-4",
+      "category": "app",
+      "title": "DengueSpot Weather Alert",
+      "content": "DengueSpot's Weather Alert feature provides: real-time weather data for your location, dengue risk score calculated using temperature, humidity, rainfall, wind speed, and seasonal factors, 5-day forecast with daily risk assessment, mosquito activity timeline showing peak biting hours, contextual prevention tips based on current risk level, and city search to check risk in any location. The risk algorithm uses weighted scoring: temperature 30%, humidity 25%, rainfall 25%, wind 10%, season 10%."
+    },
+    {
+      "id": "emergency-1",
+      "category": "emergency",
+      "title": "Dengue Emergency Numbers India",
+      "content": "Important emergency contacts for dengue in India: National Health Helpline: 104 or 1800-180-1104 (toll-free), Ambulance: 108 or 102, NVBDCP (National Vector Borne Disease Control Programme): 011-23061469, Municipal Corporation helplines for fogging requests, Nearest government hospital emergency ward, Online: IDSP (Integrated Disease Surveillance Programme) for outbreak reporting. During dengue season, many cities set up special dengue helplines and fever clinics."
+    },
+    {
+      "id": "emergency-2",
+      "category": "emergency",
+      "title": "When Dengue Becomes an Emergency",
+      "content": "Dengue becomes a medical emergency when: temperature suddenly drops below normal (hypothermia), patient becomes drowsy or unconscious, there is bleeding that won't stop, severe abdominal pain develops, patient cannot keep any fluids down, breathing becomes rapid or difficult, hands and feet become cold and clammy, or platelet count drops below 20,000. Emergency actions: Call 108 ambulance immediately, keep patient lying down, give ORS if conscious, do NOT give aspirin, and rush to nearest hospital with ICU facility."
+    },
+    {
+      "id": "travel-1",
+      "category": "travel",
+      "title": "Dengue and Travel Precautions",
+      "content": "Travel precautions for dengue-prone areas: research dengue risk at your destination, pack EPA-registered insect repellent with DEET (20-30%), carry long-sleeved clothing and pants, bring a portable mosquito net, stay in accommodations with screened windows or AC, avoid outdoor activities during peak mosquito hours (dawn and dusk), know the location of nearest hospital, carry a basic dengue emergency kit, and consider travel insurance that covers tropical diseases."
+    },
+    {
+      "id": "water-storage-1",
+      "category": "prevention",
+      "title": "Safe Water Storage Practices",
+      "content": "Safe water storage to prevent mosquito breeding: always cover water tanks with tight-fitting lids, clean water tanks every 2 weeks with scrubbing, use wire mesh on tank overflow pipes, add temephos (abate) granules to tanks that cannot be emptied regularly, store drinking water in narrow-mouthed containers, inspect rooftop tanks regularly for cracks and gaps, drain overhead tank overflow properly (not into open areas), and never leave water standing in construction sites or vacant lots."
+    },
+    {
+      "id": "monsoon-1",
+      "category": "seasonal",
+      "title": "Monsoon Season Dengue Prevention",
+      "content": "During monsoon season (June-November in India): increase frequency of breeding site checks to twice weekly, be extra vigilant about water accumulation after heavy rains, organize community cleanup drives before and during monsoon, report waterlogging to municipal authorities, use window screens and door curtains, keep mosquito repellent accessible at all times, stock up on ORS and paracetamol, and know your blood type and nearest hospital with dengue treatment."
+    },
+    {
+      "id": "misconceptions-1",
+      "category": "myths",
+      "title": "Common Misconceptions About Dengue Treatment",
+      "content": "Common treatment misconceptions: 1) Taking antibiotics helps - FALSE, dengue is a virus, antibiotics don't work. 2) Steroids boost platelets - FALSE, steroids are NOT recommended for dengue. 3) Ice baths reduce dengue fever - DANGEROUS, use lukewarm sponging instead. 4) Eating guava leaves cures dengue - UNPROVEN, no scientific evidence. 5) Blood transfusion is always needed - FALSE, most cases recover without transfusion. 6) Dengue patients should eat goat blood - UNSAFE, no medical basis, risk of other infections."
+    },
+    {
+      "id": "workplace-1",
+      "category": "prevention",
+      "title": "Dengue Prevention in Workplace",
+      "content": "Workplace dengue prevention: inspect office building for water accumulation (AC drains, planters, leaky pipes), ensure housekeeping empties water from plant saucers daily, install screens on windows, keep office areas well-lit (mosquitoes rest in dark areas), organize awareness workshops for employees, maintain first aid kit with paracetamol and ORS, establish a sick leave policy for dengue (minimum 1 week), and create a response plan for dengue outbreaks among staff."
+    },
+    {
+      "id": "mental-health-1",
+      "category": "wellbeing",
+      "title": "Mental Health During Dengue Recovery",
+      "content": "Dengue recovery can be mentally challenging: post-dengue fatigue can last 2-4 weeks causing frustration, anxiety about dropping platelet count is common, isolation during bed rest affects mood, and fear of reinfection can cause ongoing stress. Tips: maintain contact with friends and family, set realistic recovery expectations, light activities (reading, puzzles) help pass time, join online support groups, practice deep breathing for anxiety, and consult a counselor if depression persists beyond recovery."
+    },
+    {
+      "id": "reporting-1",
+      "category": "community",
+      "title": "How to Report Breeding Sites",
+      "content": "Steps to report breeding sites effectively: 1) Take clear photos of the breeding site. 2) Note the exact location (address or GPS coordinates). 3) Describe the type and size of the water body. 4) Report to: Municipal Corporation health department, local ward office, DengueSpot app (Hotspot Map feature), NVBDCP website, or call 104 health helpline. 5) Follow up on your complaint. 6) Organize neighbors to file joint complaints for faster action."
+    },
+    {
+      "id": "larvicide-1",
+      "category": "prevention",
+      "title": "Larvicides and Biological Control",
+      "content": "Larvicides for dengue prevention: Temephos (Abate): Safe for drinking water containers at recommended doses, effective for 2-3 months. BTI (Bacillus thuringiensis israelensis): Biological larvicide, safe for environment, kills mosquito larvae. Pyriproxyfen: Growth regulator, prevents larvae from becoming adults. Biological control: Guppy fish and gambusia fish eat mosquito larvae, Wolbachia-infected mosquitoes reduce dengue transmission, copepods (tiny crustaceans) feed on larvae in water containers."
+    },
+    {
+      "id": "secondinfection-1",
+      "category": "symptoms",
+      "title": "Second Dengue Infection Risk",
+      "content": "A second dengue infection with a different serotype is often more dangerous. This is due to antibody-dependent enhancement (ADE): antibodies from the first infection bind to the new serotype but cannot neutralize it, instead they help the virus enter more cells, leading to higher viral load and more severe immune response. People with a history of dengue should take EXTRA prevention precautions, seek medical care immediately for any fever, and inform their doctor about previous dengue infection."
+    },
+    {
+      "id": "greetings-1",
+      "category": "greetings",
+      "title": "Chatbot Greeting Response",
+      "content": "I'm DengueSpot AI, your dengue prevention assistant. I can help you with: understanding dengue symptoms and warning signs, prevention tips and source reduction techniques, weather-based dengue risk assessment, myths vs facts about dengue, home care and diet during dengue recovery, emergency information and when to go to hospital, protecting children and pregnant women from dengue, and how to use DengueSpot app features like the breeding site scanner, hotspot map, checklist, and weather alert. Just ask me anything about dengue!"
+    },
+    {
+      "id": "greetings-2",
+      "category": "greetings",
+      "title": "Chatbot Capabilities",
+      "content": "As your DengueSpot AI assistant, I'm trained on comprehensive dengue knowledge including WHO guidelines, Indian health authority recommendations, and community prevention best practices. I can answer questions about symptoms, treatment, prevention, mosquito biology, weather risk factors, myths vs facts, diet during recovery, and the DengueSpot app features. For medical emergencies, always contact your doctor or call 108 ambulance."
+    },
+    {
+      "id": "serotypes-1",
+      "category": "overview",
+      "title": "Dengue Virus Serotypes Explained",
+      "content": "The dengue virus has four serotypes: DENV-1, DENV-2, DENV-3, and DENV-4. All four can cause the full spectrum of illness from mild to severe dengue. Infection with one serotype provides lifelong immunity to that serotype only. Subsequent infection with a different serotype increases the risk of severe dengue due to antibody-dependent enhancement (ADE). DENV-2 and DENV-3 are often associated with more severe outbreaks. In India, all four serotypes circulate, with DENV-1 and DENV-2 being the most common."
+    },
+    {
+      "id": "immunity-1",
+      "category": "overview",
+      "title": "Dengue Immunity and Reinfection",
+      "content": "After recovering from dengue, a person develops lifelong immunity to the specific serotype they were infected with. For approximately 2-3 months after recovery, there is temporary cross-protection against the other three serotypes. However, after this period, reinfection with a different serotype becomes possible and is often more severe. This is why people living in endemic areas can get dengue multiple times. The maximum number of dengue infections a person can have is four (one for each serotype)."
+    },
+    {
+      "id": "asymptotic-1",
+      "category": "symptoms",
+      "title": "Asymptomatic Dengue Infections",
+      "content": "About 75% of dengue infections are asymptomatic, meaning the infected person shows no symptoms at all. These silent infections are still significant because: the person can still transmit the virus to mosquitoes that bite them, they develop antibodies that may complicate future infections, and they contribute to herd immunity in the community. Asymptomatic carriers are a major reason why dengue outbreaks are difficult to control completely."
+    },
+    {
+      "id": "blood-test-1",
+      "category": "diagnosis",
+      "title": "Understanding Dengue Blood Test Results",
+      "content": "Key blood test markers in dengue: NS1 Antigen positive in first 5 days confirms active dengue infection. IgM positive after Day 5 indicates current or recent infection. IgG positive suggests past infection or secondary dengue. Hematocrit (HCT) rising above 20% from baseline indicates plasma leakage. White blood cell (WBC) count typically drops below 5000 in dengue. Platelet count below 100,000 confirms dengue-related thrombocytopenia. Always get CBC daily from Day 3 to track platelet trends."
+    },
+    {
+      "id": "hydration-1",
+      "category": "treatment",
+      "title": "Hydration Strategy for Dengue Patients",
+      "content": "Proper hydration is the cornerstone of dengue treatment. Daily fluid target: 3-5 liters for adults, weight-based for children. Best fluids: ORS (oral rehydration salts) is the gold standard, coconut water provides natural electrolytes, rice water (kanji) is soothing, fresh fruit juices (avoid citrus if nauseous), clear soups and broths, and plain water. Track hydration by monitoring urine output — should be at least 0.5 mL/kg/hour. Dark yellow or reduced urine output is a warning sign of dehydration requiring hospital attention."
+    },
+    {
+      "id": "recovery-timeline-1",
+      "category": "treatment",
+      "title": "Dengue Recovery Timeline",
+      "content": "Typical dengue recovery timeline: Day 1-3: High fever, body aches begin. Day 3-5: Fever may start to subside, platelets begin dropping — this is the critical window. Day 5-7: Lowest platelet count, highest risk period for complications. Day 7-10: Platelets start recovering, appetite returns, rash may appear. Week 2: Most patients feel significantly better, can resume light activities. Week 2-4: Post-dengue fatigue is common — tiredness, weakness, mood changes. Full recovery: 3-6 weeks for complete energy restoration. Return to intense exercise only after 4 weeks and doctor clearance."
+    },
+    {
+      "id": "indoor-prevention-1",
+      "category": "prevention",
+      "title": "Indoor Mosquito Prevention Strategies",
+      "content": "Protect your home from Aedes mosquitoes: install fine mesh screens on all windows and doors, use electric mosquito bat to catch mosquitoes (effective and chemical-free), plug-in liquid vaporizers at night and during peak hours, keep doors and windows closed during dawn (6-9 AM) and dusk (4-7 PM), use light-colored curtains (mosquitoes hide in dark fabrics), check behind furniture and under beds (mosquitoes rest in dark cool spots), keep rooms well-lit and ventilated, clean AC drip trays weekly, and ensure no indoor plants have standing water in saucers."
+    },
+    {
+      "id": "outdoor-prevention-1",
+      "category": "prevention",
+      "title": "Outdoor Mosquito Prevention Tips",
+      "content": "When outdoors during dengue season: apply DEET-based repellent (20-30%) on exposed skin every 4-6 hours, wear light-colored long sleeves and pants, avoid perfumes and strong fragrances that attract mosquitoes, stay in air-conditioned or screened areas when possible, avoid sitting near stagnant water, gardens, or dense vegetation, carry a personal mosquito repellent spray, use mosquito repellent bands or patches for children, plan outdoor activities during midday (10 AM-3 PM) when Aedes mosquitoes are least active."
+    },
+    {
+      "id": "dengue-vs-flu-1",
+      "category": "symptoms",
+      "title": "Dengue vs Common Flu - How to Tell the Difference",
+      "content": "Dengue and flu share some symptoms but have key differences: DENGUE: Sudden high fever (104°F), severe pain behind eyes, intense body/joint pain ('breakbone fever'), rash appears Day 3-5, platelet count drops, NO cough or runny nose typically. FLU: Gradual fever (100-102°F), sore throat and cough, runny/stuffy nose, moderate body aches, normal platelet count. Key differentiator: If you have high fever WITHOUT respiratory symptoms during monsoon season, suspect dengue and get NS1 test done within the first 5 days."
+    },
+    {
+      "id": "dengue-vs-chikungunya-1",
+      "category": "symptoms",
+      "title": "Dengue vs Chikungunya - Key Differences",
+      "content": "Both dengue and chikungunya are spread by Aedes mosquitoes and share symptoms, but differ: DENGUE: Higher fever (104°F), more bleeding risk, platelet count drops significantly, rash is flat/maculopapular, joint pain resolves after recovery. CHIKUNGUNYA: Severe joint swelling (especially fingers, wrists, ankles), joint pain can persist for months/years, skin rash more prominent, platelet drop less severe, rarely causes hemorrhagic complications. Both can occur simultaneously (dual infection). Treatment is supportive for both."
+    },
+    {
+      "id": "elderly-1",
+      "category": "treatment",
+      "title": "Dengue in Elderly Patients",
+      "content": "Elderly patients (above 60) face higher dengue risks: pre-existing conditions like diabetes, hypertension, and heart disease complicate management. Elderly patients may show atypical symptoms — lower fever, more confusion, less obvious warning signs. Dehydration occurs faster due to reduced thirst sensation. Medications like blood thinners increase bleeding risk. Kidney function may deteriorate faster. Recommendations: seek medical attention immediately for any fever, maintain aggressive hydration, get daily blood tests from Day 1, hospitalize early if platelet count drops below 80,000, and monitor blood pressure frequently."
+    },
+    {
+      "id": "school-prevention-1",
+      "category": "prevention",
+      "title": "Dengue Prevention in Schools",
+      "content": "Schools should implement dengue prevention: conduct weekly inspection of school premises for breeding sites, ensure water coolers and tanks are covered and cleaned, eliminate water accumulation in play areas after rain, train staff to recognize dengue symptoms in students, send home any child with sudden high fever, provide dengue awareness sessions during assembly, engage students in 'Search and Destroy' breeding site activities, maintain a dengue first aid kit in the medical room, inform parents immediately if dengue cases are detected among students, and coordinate with local health authorities for fogging around the school."
+    },
+    {
+      "id": "urban-dengue-1",
+      "category": "overview",
+      "title": "Why Urban Areas Have More Dengue",
+      "content": "Dengue is predominantly an urban disease because: Aedes aegypti thrives in man-made habitats and artificial containers, higher population density allows rapid spread, construction sites create numerous breeding sites, poor waste management leaves containers that collect rainwater, air coolers, overhead tanks, and rooftop water storage are common in cities, rapid urbanization often outpaces sanitation infrastructure, and Aedes mosquitoes have a short flight range (100-200 meters), meaning dense housing allows easy person-to-person transmission via mosquitoes."
+    },
+    {
+      "id": "traditional-remedies-1",
+      "category": "treatment",
+      "title": "Traditional and Ayurvedic Remedies for Dengue",
+      "content": "Some traditional remedies used alongside medical treatment (NOT as replacements): Giloy (Tinospora cordifolia): Widely used in Ayurveda, believed to boost immunity and support platelet recovery. Papaya leaf extract: Some studies show modest platelet-boosting effect, available as juice or capsules. Tulsi (Holy Basil) tea: Believed to reduce fever and boost immunity. Neem water: Traditional antipyretic. Turmeric milk: Anti-inflammatory properties. IMPORTANT: These are complementary only. Never skip medical treatment, daily blood tests, or hospital care for severe cases. Consult your doctor before trying any remedy."
+    },
+    {
+      "id": "platelet-myths-1",
+      "category": "myths",
+      "title": "Myths About Platelet Transfusion in Dengue",
+      "content": "MYTH: Every dengue patient needs platelet transfusion. FACT: Most dengue patients recover WITHOUT platelet transfusion. WHO guidelines recommend transfusion ONLY when: there is active, clinically significant bleeding AND platelet count is below 10,000, OR before surgical procedures when platelets are below 50,000. Prophylactic platelet transfusion (just because count is low) is NOT recommended as it has not shown benefit and can cause complications like transfusion reactions and fluid overload. Platelets naturally recover after the critical phase."
+    },
+    {
+      "id": "fogging-1",
+      "category": "prevention",
+      "title": "Fogging for Dengue - Is It Effective?",
+      "content": "Fogging (space spraying) is a common dengue control measure but has limitations: it kills ADULT mosquitoes on contact but does NOT kill larvae or eggs, effect lasts only 1-2 hours, mosquitoes in enclosed spaces may survive, repeated use can lead to insecticide resistance, and it provides a false sense of security. Fogging should be used ONLY during outbreaks as an emergency measure, not as the primary prevention strategy. Source reduction (eliminating breeding sites) is 10x more effective than fogging for long-term dengue prevention."
+    },
+    {
+      "id": "climate-change-1",
+      "category": "overview",
+      "title": "Climate Change and Dengue Spread",
+      "content": "Climate change is expanding dengue's geographical reach: rising temperatures allow Aedes mosquitoes to survive in previously cold regions, longer warm seasons extend transmission periods, changing rainfall patterns create new breeding grounds, urban heat islands amplify mosquito populations in cities, and higher humidity increases mosquito survival. WHO estimates that by 2050, half the world's population could be at risk. Previously unaffected areas in Europe, North America, and highland regions are now seeing dengue cases. This makes prevention education more important than ever."
+    },
+    {
+      "id": "notification-1",
+      "category": "community",
+      "title": "Dengue as a Notifiable Disease",
+      "content": "In India, dengue is a notifiable disease under the Integrated Disease Surveillance Programme (IDSP). This means: every confirmed dengue case must be reported to health authorities, hospitals and labs are legally required to report positive cases, under-reporting is a major challenge leading to underestimated burden, the actual number of cases may be 10-30 times higher than reported figures, and reporting helps trigger public health response including fogging, awareness campaigns, and resource allocation to affected areas."
+    },
+    {
+      "id": "economic-impact-1",
+      "category": "overview",
+      "title": "Economic Impact of Dengue",
+      "content": "Dengue has significant economic impact: average cost of hospitalization for dengue in India is ₹15,000-50,000, severe dengue with ICU stay can cost ₹1-5 lakhs, patients lose 7-14 days of work on average, caregivers also lose working days, government spends crores on vector control, fogging, and public health campaigns. Annual global cost of dengue is estimated at $8.9 billion USD. For low-income families, a single dengue hospitalization can push them into debt. Prevention through source reduction is far more cost-effective than treatment."
+    },
+    {
+      "id": "wolbachia-1",
+      "category": "prevention",
+      "title": "Wolbachia Mosquitoes - New Biological Control",
+      "content": "Wolbachia is a revolutionary biological approach to dengue control: scientists introduce Wolbachia bacteria into Aedes aegypti mosquitoes, Wolbachia-infected mosquitoes cannot effectively transmit dengue virus, when released, they mate with wild mosquitoes and pass Wolbachia to offspring, over time the entire local mosquito population becomes Wolbachia-infected, reducing dengue transmission by up to 77%. The World Mosquito Program has deployed this in 14 countries. Indonesia's trial showed 77% reduction in dengue cases. It's safe for humans and the environment."
+    },
+    {
+      "id": "personal-risk-1",
+      "category": "symptoms",
+      "title": "Who Is at Higher Risk for Severe Dengue?",
+      "content": "People at higher risk for severe dengue include: those with previous dengue infection (especially with a different serotype), infants and children under 5 years, elderly above 65 years, pregnant women, people with diabetes or hypertension or heart disease, immunocompromised individuals (HIV, cancer treatment), obese individuals, and people with blood disorders like sickle cell disease or thalassemia. If you fall into any of these categories, seek medical attention immediately for any fever during dengue season."
+    },
+    {
+      "id": "pain-management-1",
+      "category": "treatment",
+      "title": "Pain Management During Dengue",
+      "content": "Managing pain safely during dengue: SAFE: Paracetamol (acetaminophen) for fever and body aches — maximum 4g/day for adults, weight-based for children. Cold compress on forehead for headache. Lukewarm sponge bath for high fever. Rest and comfortable positioning. UNSAFE — NEVER take: Aspirin (increases bleeding risk), Ibuprofen/Brufen (increases bleeding risk), Diclofenac (increases bleeding risk), Mefenamic acid (increases bleeding risk), or any NSAID. These medications interfere with platelet function and can cause dangerous bleeding in dengue patients."
+    },
+    {
+      "id": "post-dengue-1",
+      "category": "treatment",
+      "title": "Post-Dengue Recovery and Long-Term Effects",
+      "content": "After recovering from acute dengue, many patients experience post-dengue fatigue syndrome: persistent tiredness lasting 2-6 weeks, muscle weakness and body aches, hair loss (temporary, regrows in 2-3 months), mood changes including irritability and mild depression, difficulty concentrating ('brain fog'), reduced appetite, and joint stiffness. Recovery tips: gradually increase physical activity (don't rush), eat protein-rich foods and fruits, stay hydrated, get adequate sleep (8-9 hours), take iron and vitamin supplements if recommended by doctor, and be patient — full recovery can take 4-8 weeks."
+    },
+    {
+      "id": "breeding-audit-1",
+      "category": "prevention",
+      "title": "Home Breeding Site Audit Checklist",
+      "content": "Conduct this weekly breeding site audit at home: KITCHEN: Check refrigerator drip tray, plant saucers, flower vases. BATHROOM: Inspect bucket lids, tub covers, floor drains. BALCONY: Check flower pots, AC outdoor unit drip tray, any containers. TERRACE: Inspect overhead tank lid, rain gauge, old items collecting water. GARDEN: Check bird baths, pet bowls, tree holes, tire swings. GARAGE: Look for old tires, unused containers, tarps collecting water. GENERAL: Check cooler pans, holy water containers, drip irrigation ends. Use the DengueSpot Checklist feature to track your weekly audits!"
+    },
+    {
+      "id": "hospital-packing-1",
+      "category": "firstaid",
+      "title": "What to Pack for Dengue Hospitalization",
+      "content": "If you need to be hospitalized for dengue, pack: medical documents (all blood test reports, prescription papers, insurance card), ORS packets (hospital may run out), change of comfortable loose clothing, personal hygiene items, phone and charger, a notebook to track daily blood reports, contact list of family and friends, snacks (crackers, biscuits for when appetite returns), water bottle, mosquito repellent cream (even hospitals have mosquitoes), and a positive mindset — most patients recover fully within 5-7 days of hospitalization."
+    },
+    {
+      "id": "mosquito-spray-1",
+      "category": "prevention",
+      "title": "How to Use Mosquito Repellent Effectively",
+      "content": "Tips for effective mosquito repellent use: apply DEET (20-30%) or picaridin-based repellent on exposed skin, reapply every 4-6 hours or after sweating/swimming, apply sunscreen FIRST then repellent on top, do NOT spray repellent on cuts or irritated skin, for children use max 10% DEET and apply by adult's hands (not child's), spray clothing with permethrin for extra protection, vaporizers work best in enclosed rooms with windows closed, replace liquid vaporizer refills every 30-45 days, and store repellents away from food and children's reach."
+    },
+    {
+      "id": "nav-community-chat-1",
+      "category": "app",
+      "title": "DengueSpot Community Chat",
+      "content": "DengueSpot has a real-time Community Chat feature where users can join city/area-based chat rooms to discuss dengue prevention with their local community. Available rooms include Patna, Delhi, Mumbai, Chennai, Kolkata, Bangalore, Hyderabad, Lucknow, Ahmedabad, Pune, Jaipur, Coimbatore, and a General room. Features include: WebSocket-powered real-time messaging, 6 emoji reactions on messages, typing indicators, message history, and profanity filtering. You need to be logged in to use the community chat. To access it, go to the Community tab in the navigation bar. [NAV:community]"
+    },
+    {
+      "id": "nav-guide-1",
+      "category": "app",
+      "title": "DengueSpot App Navigation Guide",
+      "content": "Here's how to navigate DengueSpot: 1) SCAN TAB [NAV:scan] - Upload photos to detect mosquito breeding sites using AI. 2) CHECKLIST TAB [NAV:checklist] - Weekly prevention checklist for your home. 3) HOTSPOTS TAB [NAV:map] - View and report dengue hotspots on the interactive map. 4) LEARN TAB [NAV:learn] - Educational content about dengue facts, myths vs facts. 5) COMMUNITY TAB [NAV:community] - Real-time chat rooms for area-based dengue discussions. You can also find the Weather Alert badge at the bottom showing your local dengue risk, the News Ticker with live dengue news, your Profile with dashboard and leaderboard stats, and this AI Chatbot for questions."
+    },
+    {
+      "id": "nav-scan-1",
+      "category": "app",
+      "title": "Where is the Breeding Site Scanner",
+      "content": "The breeding site scanner is in the Scan tab. Go to the Scan tab [NAV:scan] to upload a photo and detect mosquito breeding sites using Roboflow AI image recognition. The scanner can identify common breeding objects like buckets, tires, pots, tanks, and containers with stagnant water."
+    },
+    {
+      "id": "nav-checklist-1",
+      "category": "app",
+      "title": "Where is the Prevention Checklist",
+      "content": "The weekly prevention checklist is in the Checklist tab. Go to the Checklist tab [NAV:checklist] to track your weekly dengue prevention tasks. It includes items like emptying water containers, checking flower pots, cleaning gutters, and inspecting your home for breeding sites."
+    },
+    {
+      "id": "nav-hotspot-1",
+      "category": "app",
+      "title": "Where is the Hotspot Map",
+      "content": "The dengue hotspot map is in the Hotspots tab. Go to the Hotspots tab [NAV:map] to view reported breeding sites in your area on an interactive map. You can also report new hotspots with descriptions and photos to help your community."
+    },
+    {
+      "id": "nav-learn-1",
+      "category": "app",
+      "title": "Where are Dengue Facts and Myths",
+      "content": "Educational content about dengue is in the Learn tab. Go to the Learn tab [NAV:learn] to find dengue facts, prevention lessons, myths vs facts, and community resources. From there you can explore detailed fact cards and debunk common dengue myths."
+    },
+    {
+      "id": "nav-chat-room-1",
+      "category": "app",
+      "title": "Where is the Chat Room",
+      "content": "The community chat rooms are in the Community tab. Go to the Community tab [NAV:community] to join real-time chat rooms for your city or area. Choose from 13 city-based rooms (Patna, Delhi, Mumbai, Chennai, Kolkata, Bangalore, Hyderabad, Lucknow, Ahmedabad, Pune, Jaipur, Coimbatore) or the General room to discuss dengue prevention with your community. You need to be logged in to chat."
+    }
+  ]
+}
