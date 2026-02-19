@@ -1,29 +1,4 @@
-const nodemailer = require('nodemailer');
-
-let transporter = null;
-
-function getTransporter() {
-  if (transporter) return transporter;
-
-  const emailUser = process.env.EMAIL_USER;
-  const emailPass = process.env.EMAIL_PASS;
-  const emailService = process.env.EMAIL_SERVICE || 'gmail';
-
-  if (!emailUser || !emailPass) {
-    console.warn('Email not configured — OTP emails will be logged to console');
-    return null;
-  }
-
-  transporter = nodemailer.createTransport({
-    service: emailService,
-    auth: {
-      user: emailUser,
-      pass: emailPass
-    }
-  });
-
-  return transporter;
-}
+const axios = require('axios');
 
 async function sendOtpEmail(to, code, purpose = 'login') {
   const purposeText = {
@@ -49,10 +24,13 @@ async function sendOtpEmail(to, code, purpose = 'login') {
     </div>
   `;
 
-  const transport = getTransporter();
+  const apiKey = process.env.BREVO_API_KEY;
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@denguespot.com';
+  const senderName = process.env.BREVO_SENDER_NAME || 'DengueSpot';
 
-  if (!transport) {
+  if (!apiKey) {
     // Fallback: log to console for development
+    console.warn('Brevo API key not configured — OTP emails will be logged to console');
     console.log(`\n========== OTP EMAIL ==========`);
     console.log(`To: ${to}`);
     console.log(`Purpose: ${purposeText}`);
@@ -63,20 +41,31 @@ async function sendOtpEmail(to, code, purpose = 'login') {
   }
 
   try {
-    await transport.sendMail({
-      from: `"DengueSpot" <${process.env.EMAIL_USER}>`,
-      to,
-      subject: `${code} — DengueSpot ${purposeText}`,
-      html
-    });
+    await axios.post(
+      'https://api.brevo.com/v3/smtp/email',
+      {
+        sender: { name: senderName, email: senderEmail },
+        to: [{ email: to }],
+        subject: `${code} — DengueSpot ${purposeText}`,
+        htmlContent: html
+      },
+      {
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json',
+          'api-key': apiKey
+        }
+      }
+    );
     return { success: true };
   } catch (error) {
-    console.error('Email send error:', error);
+    const errMsg = error.response?.data?.message || error.message;
+    console.error('Brevo email send error:', errMsg);
     // Fallback to console logging
     console.log(`\n========== OTP EMAIL (FALLBACK) ==========`);
     console.log(`To: ${to} | Code: ${code}`);
     console.log(`==========================================\n`);
-    return { success: true, fallback: true, error: error.message };
+    return { success: true, fallback: true, error: errMsg };
   }
 }
 
