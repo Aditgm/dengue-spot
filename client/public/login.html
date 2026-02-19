@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DengueSpot Login - Community dengue prevention and reporting app">
+    <title>DengueSpot Login - Prevent Dengue Together</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Login Box -->
+        <div class="login-box">
+            <!-- Header -->
+            <div class="login-header">
+                <h1>DengueSpot</h1>
+                <p class="tagline">Fight Dengue Together</p>
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email or Username</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Enter your email or username"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <span class="toggle-password" onclick="togglePassword()">Show</span>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Login to DengueSpot
+                </button>
+            </form>
+
+            <!-- Sign Up Link -->
+            <div class="signup-section">
+                <p>Don't have an account? 
+                    <a href="#" class="signup-link">Create one now</a>
+                </p>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider">or</div>
+
+            <!-- Social Login -->
+            <div class="social-login">
+                <button class="social-btn google-btn" title="Login with Google">
+                    <span>G</span>
+                </button>
+                <button class="social-btn facebook-btn" title="Login with Facebook">
+                    <span>F</span>
+                </button>
+                <button class="social-btn github-btn" title="Login with GitHub">
+                    <span>Git</span>
+                </button>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="login-footer">
+                <p class="info-text">
+                    Help prevent dengue in your community. Report, learn, and take action.
+                </p>
+                <p class="terms">
+                    By logging in, you agree to our 
+                    <a href="#">Terms</a> and 
+                    <a href="#">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.textContent = 'Show';
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast show ${type}`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (email.includes('@') && password.length >= 6) {
+                showToast('Login successful! Redirecting...', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            } else if (!email.includes('@') && email.length >= 3 && password.length >= 6) {
+                showToast('Login successful! Redirecting...', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            } else {
+                showToast('Invalid email/username or password', 'error');
+            }
+        });
+
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showToast('Social login coming soon!', 'info');
+            });
+        });
+
+        document.querySelector('.forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            showToast('Password reset link sent to your email', 'info');
+        });
+
+        // Demo sign up
+        document.querySelector('.signup-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showToast('Sign up page coming soon!', 'info');
+        });
+    </script>
+</body>
+</html>
