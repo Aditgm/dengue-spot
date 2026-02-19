@@ -1,0 +1,2 @@
+Build: 2.0.1 - Frontend build enabled
+Generated: 2026-02-19

@@ -25,6 +25,7 @@ const { verifyToken } = require('./utils/jwt');
 const { optionalAuth, authenticateToken } = require('./middleware/auth');
 const { checkBannedIp } = require('./middleware/ipBan');
 const redisClient = require('./config/redis');
+const keepServerAlive = require('./utils/keepAlive');
 const authRoutes = require('./routes/auth');
 const oauthRoutes = require('./routes/oauth');
 const chatRoutes = require('./routes/chat');
@@ -1073,6 +1074,10 @@ const startServer = async () => {
       console.log(`🔌 WebSocket (Socket.io) ready for community chat`);
       if (!process.env.ROBOFLOW_API_KEY) {
         console.log(`⚠️  WARNING: ROBOFLOW_API_KEY not set in .env file`);
+      }
+      // Start keep-alive service to prevent Render free tier from sleeping
+      if (process.env.NODE_ENV === 'production') {
+        keepServerAlive();
       }
     });
   } catch (error) {
