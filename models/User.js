@@ -65,21 +65,33 @@ const userSchema = new mongoose.Schema({
   chatBanReason: {
     type: String,
     default: null
+  },
+  adminRequestPending: {
+    type: Boolean,
+    default: false
+  },
+  adminRequestReason: {
+    type: String,
+    default: null
+  },
+  adminRequestedAt: {
+    type: Date,
+    default: null
   }
 }, {
   timestamps: true
 });
 
-userSchema.pre('save', async function() {
+userSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
   this.password = await bcrypt.hash(this.password, 12);
 });
 
-userSchema.methods.comparePassword = async function(candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-userSchema.methods.toPublicJSON = function() {
+userSchema.methods.toPublicJSON = function () {
   return {
     id: this._id.toString(),
     name: this.name,
@@ -91,6 +103,7 @@ userSchema.methods.toPublicJSON = function() {
     isEmailVerified: this.isEmailVerified || false,
     isBanned: this.isBanned || false,
     isChatBanned: this.isChatBanned || false,
+    adminRequestPending: this.adminRequestPending || false,
     createdAt: this.createdAt
   };
 };
