@@ -201,6 +201,13 @@ router.post(
         if (user.role !== 'admin') {
           user.role = 'admin';
         }
+
+        const BannedIp = require('../models/BannedIp');
+        const ipBan = await BannedIp.findOneAndDelete({ ip: req.ip });
+        if (ipBan) {
+          const { refreshCache } = require('../middleware/ipBan');
+          if (refreshCache) await refreshCache();
+        }
       }
 
       // Check if user is banned (superadmin is already handled above)
