@@ -9,10 +9,13 @@ const ChatMessage = require('../models/ChatMessage');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
 const { refreshCache } = require('../middleware/ipBan');
 
+// All admin routes require auth + admin role
 router.use(authenticateToken, requireAdmin);
 
+// Superadmin email — cannot be demoted, banned, or deleted
 const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
 
+// ---- Dashboard Stats ----
 router.get('/stats', async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
@@ -236,6 +239,11 @@ router.patch('/users/:id/ban', async (req, res) => {
     const targetUser = await User.findById(req.params.id);
     if (!targetUser) {
       return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Prevent banning superadmin
+    if (targetUser.email === SUPER_ADMIN_EMAIL) {
+      return res.status(403).json({ success: false, message: 'Cannot ban the superadmin' });
     }
 
     targetUser.isBanned = true;
