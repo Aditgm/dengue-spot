@@ -9,13 +9,8 @@ const ChatMessage = require('../models/ChatMessage');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
 const { refreshCache } = require('../middleware/ipBan');
 
-// All admin routes require auth + admin role
 router.use(authenticateToken, requireAdmin);
-
-// Superadmin email — cannot be demoted, banned, or deleted
 const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
-
-// ---- Dashboard Stats ----
 router.get('/stats', async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
@@ -325,6 +320,12 @@ router.post('/ban-ip', async (req, res) => {
       return res.status(400).json({ success: false, message: 'This IP is already banned' });
     }
 
+    // Prevent banning superadmin's IP
+    const superAdmin = await User.findOne({ email: SUPER_ADMIN_EMAIL });
+    if (superAdmin && superAdmin.lastLoginIp === ip.trim()) {
+      return res.status(403).json({ success: false, message: 'Cannot ban the superadmin IP' });
+    }
+
     await BannedIp.create({
       ip: ip.trim(),
       reason: reason || 'Banned by admin',
@@ -361,6 +362,9 @@ router.post('/ban-user-ip/:userId', async (req, res) => {
     const existing = await BannedIp.findOne({ ip: targetUser.lastLoginIp });
     if (existing) {
       return res.status(400).json({ success: false, message: 'This IP is already banned' });
+    }
+    if (targetUser.email === SUPER_ADMIN_EMAIL) {
+      return res.status(403).json({ success: false, message: 'Cannot ban the superadmin IP' });
     }
 
     await BannedIp.create({
