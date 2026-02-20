@@ -33,6 +33,8 @@ const adminRoutes = require('./routes/admin');
 const { router: communityRoutes, ROOMS } = require('./routes/community');
 
 const app = express();
+app.set('trust proxy', true);
+
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
 
@@ -244,10 +246,10 @@ app.get('/api/weather', apiLimiter, async (req, res) => {
     }
 
     if (!OPENWEATHER_KEY) {
-      return res.json({ 
-        success: true, 
+      return res.json({
+        success: true,
         message: 'No OPENWEATHER_API_KEY set. Frontend uses direct API calls.',
-        cached: false 
+        cached: false
       });
     }
 
@@ -390,7 +392,7 @@ app.post('/api/scan', scanLimiter, scanUpload.single('image'), async (req, res) 
     }
 
     const roboflowUrl = `https://detect.roboflow.com/${ROBOFLOW_MODEL_ID}/${ROBOFLOW_VERSION}?api_key=${ROBOFLOW_API_KEY}`;
-    
+
     const response = await axios.post(roboflowUrl, formData, {
       headers: formData.getHeaders(),
       timeout: 30000,
@@ -414,8 +416,8 @@ app.post('/api/scan', scanLimiter, scanUpload.single('image'), async (req, res) 
       success: true,
       risks: risks,
       count: risks.length,
-      message: risks.length > 0 
-        ? `Found ${risks.length} potential breeding site(s)` 
+      message: risks.length > 0
+        ? `Found ${risks.length} potential breeding site(s)`
         : 'No breeding sites detected!'
     });
     // Increment scan count for authenticated user
@@ -425,7 +427,7 @@ app.post('/api/scan', scanLimiter, scanUpload.single('image'), async (req, res) 
       if (token) {
         const decoded = verifyToken(token);
         if (decoded && decoded.userId) {
-          User.findByIdAndUpdate(decoded.userId, { $inc: { scanCount: 1 } }).catch(() => {});
+          User.findByIdAndUpdate(decoded.userId, { $inc: { scanCount: 1 } }).catch(() => { });
         }
       }
     } catch (_) { /* ignore auth errors for scan counting */ }
@@ -434,7 +436,7 @@ app.post('/api/scan', scanLimiter, scanUpload.single('image'), async (req, res) 
     if (error.response) {
       console.error('  Status:', error.response.status);
     }
-    
+
     if (req.file && fs.existsSync(req.file.path)) {
       try {
         await fsPromises.unlink(req.file.path);
@@ -443,7 +445,7 @@ app.post('/api/scan', scanLimiter, scanUpload.single('image'), async (req, res) 
       }
     }
 
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Failed to scan image',
       message: error.message,
       mock: true,
@@ -477,7 +479,7 @@ function getAdviceForObject(objectClass) {
 app.post('/api/report', apiLimiter, optionalAuth, upload.single('photo'), async (req, res) => {
   try {
     const { latitude, longitude, description, riskLevel, reporterName } = req.body;
-    
+
     if (latitude === undefined || longitude === undefined) {
       return res.status(400).json({ error: 'Latitude and longitude are required' });
     }
@@ -531,7 +533,7 @@ app.post('/api/report', apiLimiter, optionalAuth, upload.single('photo'), async 
       reporter.updateBadge();
       await reporter.save();
     }
-    
+
     res.status(201).json({
       success: true,
       hotspot,
@@ -669,7 +671,7 @@ app.delete('/api/hotspots/:id', apiLimiter, authenticateToken, async (req, res) 
 
     if (hotspot.photoUrl && hotspot.photoUrl.startsWith('/uploads/')) {
       const filePath = path.join(__dirname, hotspot.photoUrl);
-      fsPromises.unlink(filePath).catch(() => {});
+      fsPromises.unlink(filePath).catch(() => { });
     }
 
     res.json({ success: true, message: 'Hotspot deleted successfully' });
@@ -734,8 +736,8 @@ app.post('/api/checklist/:userId', apiLimiter, async (req, res) => {
       { upsert: true, returnDocument: 'after' }
     );
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       message: 'Checklist updated',
       checklist: { [checklist.week]: checklist.items }
     });
@@ -1075,7 +1077,6 @@ const startServer = async () => {
       if (!process.env.ROBOFLOW_API_KEY) {
         console.log(`⚠️  WARNING: ROBOFLOW_API_KEY not set in .env file`);
       }
-      // Start keep-alive service to prevent Render free tier from sleeping
       if (process.env.NODE_ENV === 'production') {
         keepServerAlive();
       }
