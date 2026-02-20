@@ -1,6 +1,4 @@
 const BannedIp = require('../models/BannedIp');
-
-// Cache banned IPs for 60 seconds to avoid DB hits on every request
 let cachedBannedIps = new Set();
 let lastCacheTime = 0;
 const CACHE_TTL = 60 * 1000; // 60 seconds
@@ -17,7 +15,6 @@ async function refreshCache() {
 
 const checkBannedIp = async (req, res, next) => {
   try {
-    // Refresh cache if stale
     if (Date.now() - lastCacheTime > CACHE_TTL) {
       await refreshCache();
     }
@@ -25,6 +22,11 @@ const checkBannedIp = async (req, res, next) => {
     const clientIp = req.ip || req.connection?.remoteAddress || '';
 
     if (cachedBannedIps.has(clientIp)) {
+      const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
+      if (req.path === '/login' && req.body && req.body.email && req.body.email.toLowerCase() === SUPER_ADMIN_EMAIL) {
+        return next();
+      }
+
       return res.status(403).json({
         success: false,
         message: 'Your IP address has been banned. Contact administrator.'
@@ -33,10 +35,7 @@ const checkBannedIp = async (req, res, next) => {
 
     next();
   } catch (error) {
-    // Don't block requests if check fails
     next();
   }
 };
-
-// Export cache refresh for use when banning/unbanning
 module.exports = { checkBannedIp, refreshCache };
