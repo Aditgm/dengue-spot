@@ -191,18 +191,24 @@ router.post(
         });
       }
 
-      // Check if user is banned
+      // Auto-recover superadmin — always unban + promote on login
+      const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
+      if (user.email === SUPER_ADMIN_EMAIL) {
+        if (user.isBanned) {
+          user.isBanned = false;
+          user.banReason = null;
+        }
+        if (user.role !== 'admin') {
+          user.role = 'admin';
+        }
+      }
+
+      // Check if user is banned (superadmin is already handled above)
       if (user.isBanned) {
         return res.status(403).json({
           success: false,
           message: `Your account has been banned. Reason: ${user.banReason || 'Violation of terms'}`
         });
-      }
-
-      // Auto-promote superadmin
-      const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
-      if (user.email === SUPER_ADMIN_EMAIL && user.role !== 'admin') {
-        user.role = 'admin';
       }
 
       const accessToken = generateAccessToken(user._id.toString(), user.email);
@@ -687,6 +693,8 @@ router.post(
           refreshToken
         });
       }
+
+      // For other purposes, just confirm verification
       res.json({
         success: true,
         message: 'OTP verified successfully',
