@@ -22,9 +22,10 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/api/oauth/google/callback'
+        callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/api/oauth/google/callback',
+        passReqToCallback: true
       },
-      async (accessToken, refreshToken, profile, done) => {
+      async (req, accessToken, refreshToken, profile, done) => {
         try {
           const email = profile.emails[0].value;
           const name = profile.displayName;
@@ -43,23 +44,27 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
               user.isEmailVerified = true; // Google emails are verified
               await user.save();
             }
-
-            // Check if banned
             if (user.isBanned) {
               return done(null, false, { message: 'Your account has been banned' });
             }
           } else {
-            // Create new user in MongoDB (no password needed for Google users)
             user = await User.create({
               name,
               email: email.toLowerCase(),
               googleId,
               avatar,
               provider: 'google',
-              isEmailVerified: true, // Google emails are verified
-              password: `Google_${googleId}_${Date.now()}` // placeholder, never used for login
+              isEmailVerified: true,
+              password: `Google_${googleId}_${Date.now()}`
             });
           }
+          user.lastLoginIp = req.ip || req.connection?.remoteAddress;
+
+          const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
+          if (user.email === SUPER_ADMIN_EMAIL && user.role !== 'admin') {
+            user.role = 'admin';
+          }
+          await user.save();
 
           const userId = user._id.toString();
           const jwtAccessToken = generateAccessToken(userId, user.email);
