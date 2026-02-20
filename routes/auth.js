@@ -109,58 +109,39 @@ router.post(
   }
 );
 
-// Admin registration — requires a secret key
+// Apply to become admin (authenticated users only)
 router.post(
-  '/admin/register',
-  rateLimiter({ max: 3, keyPrefix: 'admin-register:', message: 'Too many registration attempts' }),
-  registerValidation,
+  '/apply-admin',
+  authenticateToken,
+  rateLimiter({ max: 3, keyPrefix: 'apply-admin:', message: 'Too many requests' }),
   async (req, res) => {
     try {
-      const { name, email, password, adminSecret } = req.body;
-
-      // Verify admin secret key
-      const ADMIN_SECRET = process.env.ADMIN_SECRET || 'denguespot-admin-2026';
-      if (adminSecret !== ADMIN_SECRET) {
-        return res.status(403).json({
-          success: false,
-          message: 'Invalid admin secret key'
-        });
+      const user = await User.findById(req.user.userId);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
       }
 
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({
-          success: false,
-          message: 'Email already registered'
-        });
+      if (user.role === 'admin') {
+        return res.status(400).json({ success: false, message: 'You are already an admin' });
       }
 
-      const newUser = await User.create({ name, email, password, role: 'admin' });
+      if (user.adminRequestPending) {
+        return res.status(400).json({ success: false, message: 'You already have a pending admin request' });
+      }
 
-      const accessToken = generateAccessToken(newUser._id.toString(), newUser.email);
-      const refreshToken = generateRefreshToken(newUser._id.toString(), newUser.email);
+      const { reason } = req.body;
+      user.adminRequestPending = true;
+      user.adminRequestReason = reason || 'No reason provided';
+      user.adminRequestedAt = new Date();
+      await user.save();
 
-      await storeSession(newUser._id.toString(), {
-        email: newUser.email,
-        name: newUser.name,
-        role: 'admin',
-        loginAt: new Date().toISOString(),
-        ip: req.ip
-      });
-
-      res.status(201).json({
+      res.json({
         success: true,
-        message: 'Admin registration successful',
-        user: newUser.toPublicJSON(),
-        accessToken,
-        refreshToken
+        message: 'Admin request submitted. An admin will review your request.'
       });
     } catch (error) {
-      console.error('Admin registration error:', error);
-      res.status(500).json({
-        success: false,
-        message: 'Admin registration failed'
-      });
+      console.error('Apply admin error:', error);
+      res.status(500).json({ success: false, message: 'Failed to submit admin request' });
     }
   }
 );
@@ -171,7 +152,7 @@ router.post(
   loginValidation,
   async (req, res) => {
     try {
-      const { email, password, adminSecret } = req.body;
+      const { email, password } = req.body;
 
       const user = await User.findOne({ email });
       if (!user) {
@@ -216,22 +197,6 @@ router.post(
           success: false,
           message: `Your account has been banned. Reason: ${user.banReason || 'Violation of terms'}`
         });
-      }
-
-      // If admin login requested with secret key, promote existing user to admin
-      if (adminSecret) {
-        const ADMIN_SECRET = process.env.ADMIN_SECRET || 'denguespot-admin-2026';
-        if (adminSecret !== ADMIN_SECRET) {
-          return res.status(403).json({
-            success: false,
-            message: 'Invalid admin secret key'
-          });
-        }
-        // Promote user to admin if not already
-        if (user.role !== 'admin') {
-          user.role = 'admin';
-          await user.save();
-        }
       }
 
       const accessToken = generateAccessToken(user._id.toString(), user.email);
