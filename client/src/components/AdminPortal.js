@@ -20,6 +20,7 @@ function AdminPortal({ user, onLogout }) {
   const [bannedIps, setBannedIps] = useState([]);
   const [banIpInput, setBanIpInput] = useState('');
   const [banIpReason, setBanIpReason] = useState('');
+  const [adminRequests, setAdminRequests] = useState([]);
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -89,6 +90,16 @@ function AdminPortal({ user, onLogout }) {
     }
   }, []);
 
+  // Fetch admin requests
+  const fetchAdminRequests = useCallback(async () => {
+    try {
+      const res = await apiClient.get('/admin/admin-requests');
+      setAdminRequests(res.data.requests);
+    } catch (err) {
+      console.error('Failed to fetch admin requests:', err);
+    }
+  }, []);
+
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -113,6 +124,10 @@ function AdminPortal({ user, onLogout }) {
   useEffect(() => {
     if (activeSection === 'ipbans') fetchBannedIps();
   }, [activeSection, fetchBannedIps]);
+
+  useEffect(() => {
+    if (activeSection === 'admin-requests') fetchAdminRequests();
+  }, [activeSection, fetchAdminRequests]);
 
   // Actions
   const updateHotspotStatus = async (id, status) => {
@@ -219,6 +234,30 @@ function AdminPortal({ user, onLogout }) {
     }
   };
 
+  const approveAdminRequest = async (id, name) => {
+    if (!window.confirm(`Approve ${name} as admin?`)) return;
+    try {
+      await apiClient.post(`/admin/admin-requests/${id}/approve`);
+      showToast(`${name} has been promoted to admin`);
+      fetchAdminRequests();
+      fetchStats();
+    } catch (err) {
+      showToast(err.response?.data?.message || 'Failed to approve', 'error');
+    }
+  };
+
+  const rejectAdminRequest = async (id, name) => {
+    if (!window.confirm(`Reject admin request from ${name}?`)) return;
+    try {
+      await apiClient.post(`/admin/admin-requests/${id}/reject`);
+      showToast(`Admin request from ${name} rejected`);
+      fetchAdminRequests();
+      fetchStats();
+    } catch (err) {
+      showToast(err.response?.data?.message || 'Failed to reject', 'error');
+    }
+  };
+
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString('en-IN', {
       day: 'numeric', month: 'short', year: 'numeric',
@@ -252,6 +291,7 @@ function AdminPortal({ user, onLogout }) {
             { id: 'dashboard', icon: 'grid', label: 'Dashboard' },
             { id: 'hotspots', icon: 'map-pin', label: 'Hotspots' },
             { id: 'users', icon: 'users', label: 'Users' },
+            { id: 'admin-requests', icon: 'user-check', label: 'Admin Requests' },
             { id: 'reporters', icon: 'award', label: 'Reporters' },
             { id: 'ipbans', icon: 'shield', label: 'IP Bans' },
           ].map(item => (
@@ -261,19 +301,23 @@ function AdminPortal({ user, onLogout }) {
               onClick={() => setActiveSection(item.id)}
             >
               <span className="nav-icon">
-                {item.icon === 'grid' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>}
-                {item.icon === 'map-pin' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>}
-                {item.icon === 'users' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>}
-                {item.icon === 'award' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>}
-                {item.icon === 'shield' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+                {item.icon === 'grid' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /></svg>}
+                {item.icon === 'map-pin' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>}
+                {item.icon === 'users' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" /></svg>}
+                {item.icon === 'award' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></svg>}
+                {item.icon === 'shield' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>}
+                {item.icon === 'user-check' && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="8.5" cy="7" r="4" /><polyline points="17 11 19 13 23 9" /></svg>}
               </span>
               <span className="nav-label">{item.label}</span>
+              {item.id === 'admin-requests' && stats?.pendingAdminRequests > 0 && (
+                <span className="nav-badge">{stats.pendingAdminRequests}</span>
+              )}
             </button>
           ))}
         </nav>
 
         <button className="sidebar-logout" onClick={onLogout}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg>
           <span>Logout</span>
         </button>
       </aside>
@@ -286,6 +330,7 @@ function AdminPortal({ user, onLogout }) {
             {activeSection === 'dashboard' && 'Dashboard Overview'}
             {activeSection === 'hotspots' && 'Hotspot Management'}
             {activeSection === 'users' && 'User Management'}
+            {activeSection === 'admin-requests' && 'Admin Requests'}
             {activeSection === 'reporters' && 'Reporter Leaderboard'}
             {activeSection === 'ipbans' && 'IP Ban Management'}
           </h1>
@@ -301,7 +346,7 @@ function AdminPortal({ user, onLogout }) {
             <div className="dashboard-section">
               <div className="stats-grid">
                 <div className="stat-card stat-blue">
-                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" /></svg></div>
                   <div className="stat-info">
                     <span className="stat-number">{stats.totalUsers}</span>
                     <span className="stat-label">Total Users</span>
@@ -310,7 +355,7 @@ function AdminPortal({ user, onLogout }) {
                 </div>
 
                 <div className="stat-card stat-orange">
-                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg></div>
                   <div className="stat-info">
                     <span className="stat-number">{stats.totalHotspots}</span>
                     <span className="stat-label">Total Hotspots</span>
@@ -319,7 +364,7 @@ function AdminPortal({ user, onLogout }) {
                 </div>
 
                 <div className="stat-card stat-yellow">
-                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg></div>
                   <div className="stat-info">
                     <span className="stat-number">{stats.pendingHotspots}</span>
                     <span className="stat-label">Pending Review</span>
@@ -327,7 +372,7 @@ function AdminPortal({ user, onLogout }) {
                 </div>
 
                 <div className="stat-card stat-red">
-                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg></div>
                   <div className="stat-info">
                     <span className="stat-number">{stats.highRiskCount}</span>
                     <span className="stat-label">High Risk</span>
@@ -335,7 +380,7 @@ function AdminPortal({ user, onLogout }) {
                 </div>
 
                 <div className="stat-card stat-cyan">
-                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg></div>
                   <div className="stat-info">
                     <span className="stat-number">{stats.investigatingHotspots}</span>
                     <span className="stat-label">Investigating</span>
@@ -343,7 +388,7 @@ function AdminPortal({ user, onLogout }) {
                 </div>
 
                 <div className="stat-card stat-green">
-                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                  <div className="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg></div>
                   <div className="stat-info">
                     <span className="stat-number">{stats.resolvedHotspots}</span>
                     <span className="stat-label">Resolved</span>
@@ -356,21 +401,27 @@ function AdminPortal({ user, onLogout }) {
                 <h3>Quick Actions</h3>
                 <div className="action-cards">
                   <button className="action-card" onClick={() => { setHotspotFilter({ status: 'reported', risk: '' }); setActiveSection('hotspots'); }}>
-                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg></span>
                     <span className="action-text">Review Pending ({stats.pendingHotspots})</span>
                   </button>
                   <button className="action-card" onClick={() => { setHotspotFilter({ status: '', risk: 'high' }); setActiveSection('hotspots'); }}>
-                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg></span>
                     <span className="action-text">High Risk Hotspots ({stats.highRiskCount})</span>
                   </button>
                   <button className="action-card" onClick={() => setActiveSection('users')}>
-                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" /></svg></span>
                     <span className="action-text">Manage Users ({stats.totalUsers})</span>
                   </button>
                   <button className="action-card" onClick={() => setActiveSection('reporters')}>
-                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></span>
+                    <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></svg></span>
                     <span className="action-text">Top Reporters ({stats.totalReporters})</span>
                   </button>
+                  {stats.pendingAdminRequests > 0 && (
+                    <button className="action-card action-card-highlight" onClick={() => setActiveSection('admin-requests')}>
+                      <span className="action-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="8.5" cy="7" r="4" /><polyline points="17 11 19 13 23 9" /></svg></span>
+                      <span className="action-text">Pending Admin Requests ({stats.pendingAdminRequests})</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -398,7 +449,7 @@ function AdminPortal({ user, onLogout }) {
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </select>
-                <button className="refresh-btn" onClick={fetchHotspots}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
+                <button className="refresh-btn" onClick={fetchHotspots}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" /></svg> Refresh</button>
               </div>
 
               <div className="data-table-wrap">
@@ -427,7 +478,7 @@ function AdminPortal({ user, onLogout }) {
                               title="Click to view full image"
                             />
                           ) : (
-                            <span className="no-photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.3"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+                            <span className="no-photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.3"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" /><circle cx="12" cy="13" r="4" /></svg></span>
                           )}
                         </td>
                         <td className="loc-cell">
@@ -449,7 +500,7 @@ function AdminPortal({ user, onLogout }) {
                         <td>{h.reporterName || 'Anonymous'}</td>
                         <td className="date-cell">{formatDate(h.createdAt)}</td>
                         <td className="actions-cell">
-                          <button className="action-btn remove" onClick={() => deleteHotspot(h._id)} title="Delete Hotspot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>
+                          <button className="action-btn remove" onClick={() => deleteHotspot(h._id)} title="Delete Hotspot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" /></svg></button>
                         </td>
                       </tr>
                     ))}
@@ -481,7 +532,7 @@ function AdminPortal({ user, onLogout }) {
                   onChange={e => { setUserSearch(e.target.value); setUserPage(1); }}
                   className="search-input"
                 />
-                <button className="refresh-btn" onClick={fetchUsers}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
+                <button className="refresh-btn" onClick={fetchUsers}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" /></svg> Refresh</button>
               </div>
 
               <div className="data-table-wrap">
@@ -519,32 +570,32 @@ function AdminPortal({ user, onLogout }) {
                         <td className="actions-cell">
                           {u.role === 'user' ? (
                             <button className="action-btn promote" onClick={() => updateUserRole(u.id, 'admin')} title="Promote to Admin">
-                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#48cae4" strokeWidth="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#48cae4" strokeWidth="2.5"><polyline points="18 15 12 9 6 15" /></svg>
                             </button>
                           ) : (
                             <button className="action-btn demote" onClick={() => updateUserRole(u.id, 'user')} title="Demote to User">
-                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffb74d" strokeWidth="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffb74d" strokeWidth="2.5"><polyline points="6 9 12 15 18 9" /></svg>
                             </button>
                           )}
                           {u.id !== user?.id && (
                             u.isBanned ? (
                               <button className="action-btn unban-user" onClick={() => unbanUser(u.id, u.name)} title="Unban User">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
                               </button>
                             ) : (
                               <button className="action-btn ban-user" onClick={() => banUser(u.id, u.name)} title="Ban User">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /></svg>
                               </button>
                             )
                           )}
                           {u.lastLoginIp && u.id !== user?.id && (
                             <button className="action-btn ban-ip" onClick={() => banUserIp(u.id, u.name)} title="Ban IP">
-                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff8a8a" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="8" y1="11" x2="16" y2="11"/></svg>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff8a8a" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><line x1="8" y1="11" x2="16" y2="11" /></svg>
                             </button>
                           )}
                           {u.id !== user?.id && (
                             <button className="action-btn remove" onClick={() => deleteUser(u.id)} title="Delete User">
-                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef5350" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef5350" strokeWidth="2"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" /></svg>
                             </button>
                           )}
                         </td>
@@ -567,11 +618,58 @@ function AdminPortal({ user, onLogout }) {
             </div>
           )}
 
+          {/* ---- ADMIN REQUESTS ---- */}
+          {activeSection === 'admin-requests' && (
+            <div className="admin-requests-section">
+              <div className="section-filters">
+                <span className="ban-count">{adminRequests.length} pending request{adminRequests.length !== 1 ? 's' : ''}</span>
+                <button className="refresh-btn" onClick={fetchAdminRequests}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" /></svg> Refresh</button>
+              </div>
+
+              <div className="data-table-wrap">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Reason</th>
+                      <th>Requested</th>
+                      <th>Joined</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {adminRequests.map(r => (
+                      <tr key={r.id}>
+                        <td className="user-name">{r.name}</td>
+                        <td className="user-email">{r.email}</td>
+                        <td className="reason-cell">{r.reason || '—'}</td>
+                        <td className="date-cell">{formatDate(r.requestedAt)}</td>
+                        <td className="date-cell">{formatDate(r.joinedAt)}</td>
+                        <td className="actions-cell">
+                          <button className="action-btn promote" onClick={() => approveAdminRequest(r.id, r.name)} title="Approve">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                          </button>
+                          <button className="action-btn remove" onClick={() => rejectAdminRequest(r.id, r.name)} title="Reject">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef5350" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    {adminRequests.length === 0 && (
+                      <tr><td colSpan="6" className="empty-row">No pending admin requests</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
           {/* ---- REPORTERS ---- */}
           {activeSection === 'reporters' && (
             <div className="reporters-section">
               <div className="section-filters">
-                <button className="refresh-btn" onClick={fetchReporters}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
+                <button className="refresh-btn" onClick={fetchReporters}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" /></svg> Refresh</button>
               </div>
 
               <div className="data-table-wrap">
@@ -631,7 +729,7 @@ function AdminPortal({ user, onLogout }) {
                     className="ban-input reason-input"
                   />
                   <button className="ban-submit-btn" onClick={banManualIp} disabled={!banIpInput.trim()}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /></svg>
                     Ban IP
                   </button>
                 </div>
@@ -639,7 +737,7 @@ function AdminPortal({ user, onLogout }) {
 
               <div className="section-filters">
                 <span className="ban-count">{bannedIps.length} banned IP{bannedIps.length !== 1 ? 's' : ''}</span>
-                <button className="refresh-btn" onClick={fetchBannedIps}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
+                <button className="refresh-btn" onClick={fetchBannedIps}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" /></svg> Refresh</button>
               </div>
 
               <div className="data-table-wrap">
@@ -662,7 +760,7 @@ function AdminPortal({ user, onLogout }) {
                         <td className="date-cell">{formatDate(b.createdAt)}</td>
                         <td className="actions-cell">
                           <button className="action-btn unban" onClick={() => unbanIp(b.id)} title="Unban IP">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18" /><path d="M6 6l12 12" /></svg>
                             Unban
                           </button>
                         </td>
