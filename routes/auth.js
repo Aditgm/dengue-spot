@@ -199,6 +199,12 @@ router.post(
         });
       }
 
+      // Auto-promote superadmin
+      const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
+      if (user.email === SUPER_ADMIN_EMAIL && user.role !== 'admin') {
+        user.role = 'admin';
+      }
+
       const accessToken = generateAccessToken(user._id.toString(), user.email);
       const refreshToken = generateRefreshToken(user._id.toString(), user.email);
 
@@ -681,8 +687,6 @@ router.post(
           refreshToken
         });
       }
-
-      // For other purposes, just confirm verification
       res.json({
         success: true,
         message: 'OTP verified successfully',
