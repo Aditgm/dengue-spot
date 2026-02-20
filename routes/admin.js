@@ -9,10 +9,10 @@ const ChatMessage = require('../models/ChatMessage');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
 const { refreshCache } = require('../middleware/ipBan');
 
-// All admin routes require auth + admin role
 router.use(authenticateToken, requireAdmin);
 
-// ---- Dashboard Stats ----
+const SUPER_ADMIN_EMAIL = (process.env.SUPER_ADMIN_EMAIL || 'arajsinha4@gmail.com').toLowerCase();
+
 router.get('/stats', async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
@@ -177,15 +177,18 @@ router.patch('/users/:id/role', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Cannot demote yourself' });
     }
 
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { role },
-      { new: true }
-    ).select('-password');
-
-    if (!user) {
+    // Prevent demoting superadmin
+    const targetUser = await User.findById(req.params.id).select('-password');
+    if (!targetUser) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
+    if (targetUser.email === SUPER_ADMIN_EMAIL && role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Cannot demote the superadmin' });
+    }
+
+    targetUser.role = role;
+    await targetUser.save();
+    const user = targetUser;
 
     res.json({
       success: true,
@@ -202,6 +205,12 @@ router.delete('/users/:id', async (req, res) => {
   try {
     if (req.params.id === req.user.userId) {
       return res.status(400).json({ success: false, message: 'Cannot delete yourself' });
+    }
+
+    // Prevent deleting superadmin
+    const checkUser = await User.findById(req.params.id);
+    if (checkUser && checkUser.email === SUPER_ADMIN_EMAIL) {
+      return res.status(403).json({ success: false, message: 'Cannot delete the superadmin' });
     }
 
     const user = await User.findByIdAndDelete(req.params.id);
