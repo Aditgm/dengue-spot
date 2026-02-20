@@ -1119,3 +1119,37 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Nav Badge (pending count) */
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: linear-gradient(135deg, #ef5350, #e53935);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  margin-left: auto;
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.4);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Highlighted action card */
+.action-card-highlight {
+  border-color: rgba(244, 67, 54, 0.35) !important;
+  background: linear-gradient(160deg, #2a1520 0%, #1d1020 100%) !important;
+}
+
+.action-card-highlight:hover {
+  border-color: rgba(244, 67, 54, 0.55) !important;
+  background: linear-gradient(160deg, #3a2030 0%, #2d1a30 100%) !important;
+}
