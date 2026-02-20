@@ -17,6 +17,7 @@ router.get('/stats', async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
     const totalAdmins = await User.countDocuments({ role: 'admin' });
+    const pendingAdminRequests = await User.countDocuments({ adminRequestPending: true });
     const totalHotspots = await Hotspot.countDocuments();
     const pendingHotspots = await Hotspot.countDocuments({ status: 'reported' });
     const investigatingHotspots = await Hotspot.countDocuments({ status: 'investigating' });
@@ -34,6 +35,7 @@ router.get('/stats', async (req, res) => {
       stats: {
         totalUsers,
         totalAdmins,
+        pendingAdminRequests,
         totalHotspots,
         pendingHotspots,
         investigatingHotspots,
@@ -398,7 +400,7 @@ router.get('/chat/stats', async (req, res) => {
     const chatBannedUsers = await User.countDocuments({ isChatBanned: true });
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const recentMessages = await ChatMessage.countDocuments({ createdAt: { $gte: weekAgo }, isDeleted: false });
-    
+
     // Messages per room
     const roomStats = await ChatMessage.aggregate([
       { $match: { isDeleted: false } },
@@ -607,6 +609,76 @@ router.get('/chat/banned-users', async (req, res) => {
   } catch (error) {
     console.error('Fetch chat banned users error:', error);
     res.status(500).json({ success: false, message: 'Failed to fetch banned users' });
+  }
+});
+
+// ---- Admin Role Requests ----
+router.get('/admin-requests', async (req, res) => {
+  try {
+    const pendingUsers = await User.find({ adminRequestPending: true })
+      .select('name email adminRequestReason adminRequestedAt createdAt')
+      .sort({ adminRequestedAt: -1 })
+      .lean();
+
+    res.json({
+      success: true,
+      requests: pendingUsers.map(u => ({
+        id: u._id,
+        name: u.name,
+        email: u.email,
+        reason: u.adminRequestReason,
+        requestedAt: u.adminRequestedAt,
+        joinedAt: u.createdAt
+      }))
+    });
+  } catch (error) {
+    console.error('Fetch admin requests error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch admin requests' });
+  }
+});
+
+router.post('/admin-requests/:id/approve', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    if (!user.adminRequestPending) {
+      return res.status(400).json({ success: false, message: 'No pending admin request for this user' });
+    }
+
+    user.role = 'admin';
+    user.adminRequestPending = false;
+    user.adminRequestReason = null;
+    user.adminRequestedAt = null;
+    await user.save();
+
+    res.json({ success: true, message: `${user.name} has been promoted to admin` });
+  } catch (error) {
+    console.error('Approve admin request error:', error);
+    res.status(500).json({ success: false, message: 'Failed to approve request' });
+  }
+});
+
+router.post('/admin-requests/:id/reject', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    if (!user.adminRequestPending) {
+      return res.status(400).json({ success: false, message: 'No pending admin request for this user' });
+    }
+
+    user.adminRequestPending = false;
+    user.adminRequestReason = null;
+    user.adminRequestedAt = null;
+    await user.save();
+
+    res.json({ success: true, message: `Admin request from ${user.name} has been rejected` });
+  } catch (error) {
+    console.error('Reject admin request error:', error);
+    res.status(500).json({ success: false, message: 'Failed to reject request' });
   }
 });
 
