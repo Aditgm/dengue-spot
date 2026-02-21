@@ -1048,7 +1048,6 @@ io.on('connection', (socket) => {
         userId: userData.userId,
         userName: userData.userName
       });
-      // Update online count
       setTimeout(() => {
         const roomObj = io.sockets.adapter.rooms.get(roomName);
         io.to(roomName).emit('online-count', { count: roomObj ? roomObj.size : 0 });
